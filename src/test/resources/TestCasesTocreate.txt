@@ -1,0 +1,30 @@
+comment_sentence_ids to check to ensure the mapping of features. The features whose value should be 1 or 0 in the csv. 
+
+531:
+	value 1: 	heuristic-Responsibilities-Represents [something].
+	 			heuristic-Responsibilities-I represents [something].
+	 			heuristic-Collaborators-[something] represents [something].
+
+	value 0:  	heuristic-Keyimplementationpoints-[something] wants.
+	 			heuristic-Responsibilities-[something] objects.
+				heuristic-SubclassesExplanation-To provide [something].
+
+537:
+	value 1: 	heuristic-Responsibilities-[something] transformations.
+				heuristic-Intent-I is transformation.
+
+	value 0:  	heuristic-Intent-[something] is part.
+				heuristic-Intent-[something] adds.
+
+768:
+	value 1:  	heuristic-Responsibilities-[something] events.
+			  	heuristic-Preconditions-Is sent.
+				heuristic-Collaborators-Is sent.
+				heuristic-Classreferences-Is sent.
+				heuristic-Responsibilities-Is sent.
+
+	value 0:  	heuristic-Responsibilities-Adds.
+				heuristic-Responsibilities-Includes [something].
+				heuristic-Responsibilities-To make [something].
+				heuristic-Responsibilities-I is resource [something] build.
+				heuristic-Responsibilities-[auxiliary] support [something].

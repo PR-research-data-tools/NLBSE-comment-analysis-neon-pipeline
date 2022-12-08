@@ -1,0 +1,919 @@
+stratum,class,comment,Intent,Responsibilities,Collaborators,Keymessages,Keyimplementationpoints,Instancevariables,ReferenceToOtherResources,SubclassesExplanation,Classreferences,Example,Todocomments,Codingguidlines,Warnings,Discourse,Links,Extensions,Recommendations,Observations,Preconditions,Dependencies,License/copyright,Other
+1,BlAnchorRelativeToElement,Relative anchor takes an arbitrary element as a reference an compute its position based on properties of that element.,,Relative anchor takes an arbitrary element as a reference an compute its position based on properties of that element.,,,,,,,,,,,,,,,,,,,,
+1,BlArrowheadExamples,I contain examples of different types of ==BlArrowheadElement==,,I contain examples of different types of ==BlArrowheadElement==,,,,,,,BlArrowheadElement,,,,,,,,,,,,,
+1,BlArrowheadSimpleArrow,"I am a simple arrow-like arrowhead.
+Both my size and arrow length depend on the curve width.
+
+It is possible hovewer to customize a length fraction - how long should be the outer ""arrow"" compared to the length of the side of a nose triangle.
+
+Users can also customise nose angle that tells how wide should the arrow lines be spread.
+The with of the outer arrows can be specified by changing border width of a simple arrow arrowhead.
+
+I support both background and border paint and can have hollow inner triangle.","I am a simple arrow-like arrowhead.
+Both my size and arrow length depend on the curve width.","I support both background and border paint and can have hollow inner triangle. 
+The with of the outer arrows can be specified by changing border width of a simple arrow arrowhead.",,"It is possible hovewer to customize a length fraction - how long should be the outer ""arrow"" compared to the length of the side of a nose triangle.",,,,,,Users can also customise nose angle that tells how wide should the arrow lines be spread.,,,,,,,,,,,,
+1,BlArrowheadTriangle,"I am a triangular arrow head.
+My size depends on the width of a curve and hence can not be manually specified.
+
+It is possible to have a border around triangle by specifying a border width of a triangle arrowhead.
+
+I support background and border paints.
+ - For hollow arrowhead let background be transparent.
+ - For solid arrowhead make background paint be the same as border paint.
+         (it is possible to specify different paints for border and background)",I am a triangular arrow head.,"My size depends on the width of a curve and hence can not be manually specified.
+ I support background and border paints.
+ - For hollow arrowhead let background be transparent.
+ - For solid arrowhead make background paint be the same as border paint.
+         (it is possible to specify different paints for border and background)",,,It is possible to have a border around triangle by specifying a border width of a triangle arrowhead.,,,,,,,,,,,,,,,,,
+1,BlChicken,"How to run:
+
+
+==BlChicken open==",,,,,,,,,,"How to run:
+
+
+==BlChicken open==",,,,,,,,,,,,
+1,BlChickenLeg,I am a single red chicken leg with two toes,I am a single red chicken leg with two toes,,,,,,,,,,,,,,,,,,,,,
+1,BlChildrenCollection,"I am an abstract collection of bloc elements that can be mutated. I am used by a ${class:BlElement}$ to store its children.
+
+I provide a data structure independent API for adding and removing children. I assume an index-based way of working with children. My subclasses wrap concrete data structures for storing the actual children. Bloc elements work with children only in terms of the API that I provide. Hence, I only provide a minimum API needed to work with children, instead of the full collection API.
+
+I allow elements to optimize working with children for different scenarious. For example, an array for storing children optimises for accessing fast accesses at any position. A linked list optimize for fast adding and removing. A rope uses a balanced binary tree to support fast adding, removing and accessing, with the disadvantage of taking more memory.
+
+!!API
+
+The following subclasses can be used to store children: 
+- ${class:BlChildrenArray}$: stores children using an ${class:Array}$ 
+- ${class:BlChildrenLinkedList}$: stores children using a ${class:LinkedList}$  
+- ${class:BlChildrenOrderedCollection}$: stores children using a ${class:OrderedCollection}$
+- ${class:BlChildrenRope}$: stores children using a ${class:BlCollectionRope}$
+
+Subclasses need to provide the implementation for methods adding and removing children.","""I am an abstract collection of bloc elements that can be mutated.","I provide a data structure independent API for adding and removing children. I assume an index-based way of working with children. 
+
+I allow elements to optimize working with children for different scenarious. For example, an array for storing children optimises for accessing fast accesses at any position. A linked list optimize for fast adding and removing. A rope uses a balanced binary tree to support fast adding, removing and accessing, with the disadvantage of taking more memory.",I am used by a ${class:BlElement}$ to store its children.,,,,,"My subclasses wrap concrete data structures for storing the actual children. Bloc elements work with children only in terms of the API that I provide. Hence, I only provide a minimum API needed to work with children, instead of the full collection API.
+
+Subclasses need to provide the implementation for methods adding and removing children."" 
+!!API
+
+The following subclasses can be used to store children: 
+- ${class:BlChildrenArray}$: stores children using an ${class:Array}$ 
+- ${class:BlChildrenLinkedList}$: stores children using a ${class:LinkedList}$  
+- ${class:BlChildrenOrderedCollection}$: stores children using a ${class:OrderedCollection}$
+- ${class:BlChildrenRope}$: stores children using a ${class:BlCollectionRope}$","${class:BlElement}$
+${class:BlChildrenArray}$
+${class:Array}$ 
+${class:BlChildrenLinkedList}$
+${class:LinkedList}$
+${class:BlChildrenOrderedCollection}$
+${class:OrderedCollection}$
+${class:BlChildrenRope}$
+${class:BlCollectionRope}$",,,,,,,,,,,,,
+1,BlChildrenOrderedCollectionExamples,"I define examples for the class ${class:BlChildrenOrderedCollection}$.
+
+Instances of ${class:BlChildrenOrderedCollection}$ are created by directly instatiating the class.
+${example:BlChildrenOrderedCollectionExamples>>#emptyChildrenExplicitCreation}$
+
+Bloc elements can then be added and removed from the collection.
+${example:BlChildrenOrderedCollectionExamples>>#add}$
+
+${example:BlChildrenOrderedCollectionExamples>>#remove}$",,I define examples for the class ${class:BlChildrenOrderedCollection}$.,,,,"Instances of ${class:BlChildrenOrderedCollection}$ are created by directly instatiating the class.
+${example:BlChildrenOrderedCollectionExamples>>#emptyChildrenExplicitCreation}$",,,,"Bloc elements can then be added and removed from the collection
+Bloc elements can then be added and removed from the collection.
+${example:BlChildrenOrderedCollectionExamples>>#add}$
+
+${example:BlChildrenOrderedCollectionExamples>>#remove}$",,,,,,,,,,,,
+1,BlChildrenSubset,"I capture a subset of children from a ${class:BlElement}$ instance.
+
+I am an abstract class. My subclasses define the actual order and criteria for filtering children and iterating over the set of children.
+I exist to explicitly capture and combine various ways of filtering and iterating over children. For example, ${class:BlChildrenReversed}$ indicates that the user wants to explicitly iterate over elements in reverse order; ${class:BlChildrenAccountedByLayout}$ indicates that only should children taken into account by layout should be included. 
+The example below shows a scenario of combining multiple ways to iterate over children. By having an explicit object for each operation, the composition of operations can be inspected.
+${example:BlChildrenSubsetExamples>>#childrenWithMultipleCombinedSubsets}$
+
+I do not enforce a lazy API. Subclasses can perform the filtering immediately or when iteration over children is required. I aim to maintain the composition of subsets while optimizing for speed whenever possible.
+
+!!API
+Instances of me are created by calling the factory method ${method:BlChildrenSubset class>>#on:}$ on a subclass with an instance of ${class:BlChildren}$ as parameter.
+
+Subclasses need to override the method ${method:BlChildrenSubset>>#subsetFrom:}$ to filter the elements from the given ${class:BlChildren}$ instance. This can perform no filtering, filter elements, or also change the order of elements.
+
+!! Implementation details
+Internally the result of ${method:BlChildrenSubset>>#subsetFrom:}$ is stored into an instance variable. This result is then used when accessing or iterating over elements. This decision was taken to allow iterators to perform work when the iterator is created and ensure a faster iteration.
+
+To preserve the composition of iterators I hold a reference to the initial ${class:BlChildren}$ instance.",I am an abstract class.,"""I capture a subset of children from a ${class:BlElement}$ instance. 
+I exist to explicitly capture and combine various ways of filtering and iterating over children.",,"!!API
+Instances of me are created by calling the factory method ${method:BlChildrenSubset class>>#on:}$ on a subclass with an instance of ${class:BlChildren}$ as parameter.","!! Implementation details
+Internally the result of ${method:BlChildrenSubset>>#subsetFrom:}$ is stored into an instance variable. This result is then used when accessing or iterating over elements. This decision was taken to allow iterators to perform work when the iterator is created and ensure a faster iteration.","!!API
+Instances of me are created by calling the factory method ${method:BlChildrenSubset class>>#on:}$ on a subclass with an instance of ${class:BlChildren}$ as parameter.
+
+To preserve the composition of iterators I hold a reference to the initial ${class:BlChildren}$ instance.""",,"My subclasses define the actual order and criteria for filtering children and iterating over the set of children.  
+I do not enforce a lazy API. Subclasses can perform the filtering immediately or when iteration over children is required. I aim to maintain the composition of subsets while optimizing for speed whenever possible.
+
+
+Subclasses need to override the method ${method:BlChildrenSubset>>#subsetFrom:}$ to filter the elements from the given ${class:BlChildren}$ instance. This can perform no filtering, filter elements, or also change the order of elements.",,"For example, ${class:BlChildrenReversed}$ indicates that the user wants to explicitly iterate over elements in reverse order; ${class:BlChildrenAccountedByLayout}$ indicates that only should children taken into account by layout should be included. 
+The example below shows a scenario of combining multiple ways to iterate over children. By having an explicit object for each operation, the composition of operations can be inspected.
+${example:BlChildrenSubsetExamples>>#childrenWithMultipleCombinedSubsets}$",,,,,,,,,,,,
+1,BlClickEvent,"The click event is fired when a pointing device button (a mouse's primary button) is pressed and released on a single element.
+
+The order of fired events:
+
+ - Mouse Down
+ - Mouse Up
+ - Click",,The click event is fired when a pointing device button (a mouse's primary button) is pressed and released on a single element.,,,"The order of fired events:
+
+ - Mouse Down
+ - Mouse Up
+ - Click",,,,,,,,,,,,,,,,,
+1,BlCompulsoryCombinationTest,This class contains tests,,This class contains tests,,,,,,,,,,,,,,,,,,,,
+1,BlConcatenationRopeIterator,I am a special iterator used to iterate over concatenation rope,I am a special iterator used to iterate over concatenation rope,I am a special iterator used to iterate over concatenation rope,I am a special iterator used to iterate over concatenation rope,,,,,,,,,,,,,,,,,,,
+1,BlDecelerateInterpolator,"I am an interpolator where the rate of change starts out quickly and and then decelerates.
+
+I am configurable using ""factor"" - a degree to which the animation should be eased. Setting factor to 1.0f produces an upside-down y=x^2 parabola. Increasing factor above 1.0f makes exaggerates the ease-out effect (i.e., it starts even faster and ends evens slower).
+
+My formula is:
+	f(x) = 1 - (1 - x)^n, where n = 2* factor
+
+I meant to be immutable, therefore factor can be only set using factory method #factor: on my class side","""I am an interpolator where the rate of change starts out quickly and and then decelerates.
+
+I am configurable using """"factor"""" - a degree to which the animation should be eased.","""I am an interpolator where the rate of change starts out quickly and and then decelerates.",,,"Setting factor to 1.0f produces an upside-down y=x^2 parabola. Increasing factor above 1.0f makes exaggerates the ease-out effect (i.e., it starts even faster and ends evens slower).
+
+My formula is:
+        f(x) = 1 - (1 - x)^n, where n = 2* factor
+
+I meant to be immutable, therefore factor can be only set using factory method #factor: on my class side""",,,,,,,,,,,,,,,,,
+1,BlDevScripterCheckFiredEventsStep,"I check whether particular ${class:BlEvent}$ events were fired on a ${class:BlElement}$ target.
+
+!! Example
+
+Here you can see how to configure a fire and check a click event on a child element:
+${example:BlDevScripterExamples>>#clickCheck|previewExpanded=true|previewHeight=400}$",,I check whether particular ${class:BlEvent}$ events were fired on a ${class:BlElement}$ target.,,,,,,,,"!! Example
+
+Here you can see how to configure a fire and check a click event on a child element:
+${example:BlDevScripterExamples>>#clickCheck|previewExpanded=true|previewHeight=400}$",,,,,,,,,,,,
+1,BlDevScripterClickStep,"I fire a ${class:BlMouseDownEvent}$, ${class:BlMouseUpEvent}$, and ${class:BlClickEvent}$.
+
+!! Example
+
+Here you can see how to configure a fire and check a click event on a child element:
+${example:BlDevScripterExamples>>#clickCheck|previewExpanded=true|previewHeight=400}$",,"I fire a ${class:BlMouseDownEvent}$, ${class:BlMouseUpEvent}$, and ${class:BlClickEvent}$.",,,,,,,"${class:BlMouseDownEvent}$
+${class:BlMouseUpEvent}$
+ ${class:BlClickEvent}$","!! Example
+
+Here you can see how to configure a fire and check a click event on a child element:
+${example:BlDevScripterExamples>>#clickCheck|previewExpanded=true|previewHeight=400}$",,,,,,,,,,,,
+1,BlDragDelegate,"Drag delegate provides drag items when a visual element lifts.
+Drag gesture fails if there are no drag items",,"Drag delegate provides drag items when a visual element lifts.
+Drag gesture fails if there are no drag items",,,,,,,,,,,,,,,,,,,,
+1,BlElementBoundsExamples,I contain examples of element bounds api,,I contain examples of element bounds api,,,,,,,,,,,,,,,,,,,,
+1,BlElementCenterLeftAnchor,My position is equal to the left center of a reference element,,My position is equal to the left center of a reference element,My position is equal to the left center of a reference element,,,,,,,,,,,,,,,,,,,
+1,BlElementDynamicTransformation,"I am dynamic element transformation in the sense that my transformation matrix may actually depend on some element properties such as #extent or #position.
+
+It means that matrix computation is performed only when requested taking owner element into account.
+This also means that the matrix dimension (2D or 3D) should be determined dynamically based on inner transformations",I am dynamic element transformation in the sense that my transformation matrix may actually depend on some element properties such as #extent or #position.,I am dynamic element transformation in the sense that my transformation matrix may actually depend on some element properties such as #extent or #position.,,,It means that matrix computation is performed only when requested taking owner element into account.,,,,,,,,,,,,This also means that the matrix dimension (2D or 3D) should be determined dynamically based on inner transformations,,,,,
+1,BlElementEffect,"I am the abstract root class for effects.
+I define the default drawing strategy (before & after).
+My subclasses can be composed as a chain of effects.
+I can influence the bounds of my owner (used to clip my owner).",I am the abstract root class for effects.,"I define the default drawing strategy (before & after).
+I can influence the bounds of my owner (used to clip my owner).",,,,,,My subclasses can be composed as a chain of effects.,,,,,,,,,,,,,,
+1,BlElementPositionChangedEvent,"Is sent when element's position within its parent changes.
+
+Note: position may change even if an element has no parent",,,Is sent when element's position within its parent changes.,,,,,,,,,,Note: position may change even if an element has no parent,,,,,,Is sent when element's position within its parent changes,,,
+1,BlElementPositionChangeTest,I contain examples of position change logging functionality,,I contain examples of position change logging functionality,,,,,,,,,,,,,,,,,,,,
+1,BlElementRemovedEvent,"Is sent by an element after it is removed from the parent.
+
+Note: I am not sent when element is detached!
+
+Example:
+
+[[[
+| child parent |
+
+child := BlElement new.
+child when: BlElementRemovedEvent do: [ self inform: 'Removed from parent' ].
+
+parent := BlElement new.
+parent addChild: child.
+parent removeChild: child
+]]]",,,Is sent by an element after it is removed from the parent.,,,,,,,"Example:
+
+[[[
+| child parent |
+
+child := BlElement new.
+child when: BlElementRemovedEvent do: [ self inform: 'Removed from parent' ].
+
+parent := BlElement new.
+parent addChild: child.
+parent removeChild: child
+]]]",,,Note: I am not sent when element is detached!,,,,,,,,,
+1,BlElementSelectionAcquiredEvent,"Is sent when element gets inside of mouse selection rectangle or when the overlapping rectangle formed by element's bounds and selection rectangle changes.
+
+Text containing elements should react on this event and select a corresponding portion of text within selection rectangle",,,Is sent when element gets inside of mouse selection rectangle or when the overlapping rectangle formed by element's bounds and selection rectangle changes.,,,,,,,,,,Text containing elements should react on this event and select a corresponding portion of text within selection rectangle,,,,,,Is sent when element gets inside of mouse selection rectangle or when the overlapping rectangle formed by element's bounds and selection rectangle changes.,,,
+1,BlExampleCustomEventTarget,I am an example of a custom non-element event target that can be nicely integrated in bloc infrastructure,I am an example of a custom non-element event target,that can be nicely integrated in bloc infrastructure,,,,,,,,,,,,,,,,,,,,
+1,BlExampleElementWithBrokenOnLayout,I am an element with a broken onLayout method that throws Error (SubscriptOutOfBounds),I am an element with a broken onLayout method,that throws Error (SubscriptOutOfBounds),,,,,,,,,,,,,,,,,,,,
+1,BlExperimentalExamples,"I contain experimental examples that only work in manually prepared laboratory environments.
+
+Trying to run these examples may result in undefined bahaviour such as: crash, infinite debugger windows spawning, unresponsive image, universe collapse or suddenly created black hole that will probably destroy our solar system.
+
+Take care. Be conscious at all times.",,I contain experimental examples that only work in manually prepared laboratory environments.,,,,,,,,,,,"Trying to run these examples may result in undefined bahaviour such as: crash, infinite debugger windows spawning, unresponsive image, universe collapse or suddenly created black hole that will probably destroy our solar system.
+
+Take care. Be conscious at all times.",,,,"Trying to run these examples may result in undefined bahaviour such as: crash, infinite debugger windows spawning, unresponsive image, universe collapse or suddenly created black hole that will probably destroy our solar system. 
+Take care. Be conscious at all times.",,I contain experimental examples that only work in manually prepared laboratory environments.,,,
+6,RTSVGBoxedTextPopup,"A RTSVGBoxedTextPopup is a text popup, contained in a square box.
+
+This boxing, in SVG, supports many features, not included in this class.","A RTSVGBoxedTextPopup is a text popup, contained in a square box.","This boxing, in SVG, supports many features, not included in this class.",,,,,,,,,,,,,,,,,,,,
+6,RTSVGPopup,"A RTSVGPopup is any kind of popup born from a certain element.
+
+The click refers to the posibility of activating the popup only when the element is clicked. This is disabled by default.",A RTSVGPopup is any kind of popup born from a certain element.,The click refers to the posibility of activating the popup only when the element is clicked. This is disabled by default.,,,,,,,,,,,This is disabled by default.,,,,,,The click refers to the posibility of activating the popup only when the element is clicked.,,,
+6,RTSVGVisitor2Test,I am a simple test class for RTSVGVisitor2,I am a simple test class for RTSVGVisitor2,,,,,,,,RTSVGVisitor2,,,,,,,,,,,,,
+6,RTTabTable,RTTabTable is made to work with CSV file contents.,,RTTabTable is made to work with CSV file contents.,,,,,,,,,,,,,,,,,,,,
+6,RTTextPath,I am a simple class to generate text in roassal with Athens cairo that uses the textPathCommand from roassal,I am a simple class to generate text in roassal,generate text in roassal,with Athens cairo that uses the textPathCommand from roassal,,,,,,,,,,,,,,,,,,,
+6,RTTextWord,"A RTTextWord represents one word of an original text.
+
+Instance Variables
+        interval:                <Interval>
+        text:                <String | Text>
+
+interval
+        - interval of the word in the original text
+
+text
+        - word, a part of the orignal text",A RTTextWord represents one word of an original text.,,,"interval
+        - interval of the word in the original text
+
+text
+        - word, a part of the orignal text",,"Instance Variables
+        interval:                <Interval>
+        text:                <String | Text>",,,,,,,,,,,,,,,,
+6,RTTimelineSetTest,A RTTimeLineSetTest is a test class for testing the behavior of RTTimeLineSet,A RTTimeLineSetTest is a test class for testing the behavior of RTTimeLineSet,A RTTimeLineSetTest is a test class for testing the behavior of RTTimeLineSet,A RTTimeLineSetTest is a test class for testing the behavior of RTTimeLineSet,,,,,,RTTimeLineSet,,,,,,,,,,,,,
+6,RTTreeMapExampleTODELETE,Examples of RTTreeMap,Examples of RTTreeMap,,,,,,,,RTTreeMap,,,,,,,,,,,,,
+6,RTVerticalMultipleData,"RTVerticalMultipleData represents a group of data points that are vertically located. Each group has the same X value.
+
+Negative data are not allowed.
+
+Here is an example:
+[[[
+| b d |                        
+b := RTGrapher new.
+
+d := RTVerticalMultipleData new.
+d points: #( #('hello' 1 2 1) #('world' 2 4 2 ) #('bonjour' 3 5 4) #('bonjour' 3 5 4 ) #('bonjour' 3 5 4)).
+d addMetric: #second.
+d addMetric: #third.
+d addMetric: #fourth.
+
+d barChartWithBarTitle: #first rotation: -30.
+b add: d.
+
+b                        
+]]] 
+
+Here another example:
+[[[
+| b d classes |
+classes := (Collection withAllSubclasses reverseSortedAs: #numberOfMethods) first:        10.
+                        
+b := RTGrapher new.
+
+d := RTVerticalMultipleData new.
+d points: classes.
+d addMetric: #numberOfLinesOfCode.
+d addMetric: #numberOfMethods.
+
+d barChartWithBarTitle: #name rotation: -30.
+b add: d.
+
+b
+]]]",RTVerticalMultipleData represents a group of data points that are vertically located.,,RTVerticalMultipleData represents a group of data points that are vertically located.,,"Each group has the same X value.
+
+Negative data are not allowed.",,,,,"Here is an example:
+[[[
+| b d |                        
+b := RTGrapher new.
+
+d := RTVerticalMultipleData new.
+d points: #( #('hello' 1 2 1) #('world' 2 4 2 ) #('bonjour' 3 5 4) #('bonjour' 3 5 4 ) #('bonjour' 3 5 4)).
+d addMetric: #second.
+d addMetric: #third.
+d addMetric: #fourth.
+
+d barChartWithBarTitle: #first rotation: -30.
+b add: d.
+
+b                        
+]]] 
+
+Here another example:
+[[[
+| b d classes |
+classes := (Collection withAllSubclasses reverseSortedAs: #numberOfMethods) first:        10.
+                        
+b := RTGrapher new.
+
+d := RTVerticalMultipleData new.
+d points: classes.
+d addMetric: #numberOfLinesOfCode.
+d addMetric: #numberOfMethods.
+
+d barChartWithBarTitle: #name rotation: -30.
+b add: d.
+
+b
+]]]",,,,,,,,,,,,
+6,RTWeightedCircleLayout,"RTWeightedCircleLayout is a circle layout that gives more space to big elements and fewer space to small elements.
+
+Here is an example:
+-=-=-=-=-=-=-=-=-=-=-=-=
+v := RTView new.
+elements := (RTEllipse new size: 5; color: Color red; size: [:vv | vv * 4 ]) elementsOn: (1 to: 15).
+v addAll: elements.
+RTWeightedCircleLayout on: elements.
+v
+-=-=-=-=-=-=-=-=-=-=-=-=",RTWeightedCircleLayout is a circle layout that gives more space to big elements and fewer space to small,RTWeightedCircleLayout is a circle layout that gives more space to big elements and fewer space to small elements.,,,,,,,,"Here is an example:
+-=-=-=-=-=-=-=-=-=-=-=-=
+v := RTView new.
+elements := (RTEllipse new size: 5; color: Color red; size: [:vv | vv * 4 ]) elementsOn: (1 to: 15).
+v addAll: elements.
+RTWeightedCircleLayout on: elements.
+v
+-=-=-=-=-=-=-=-=-=-=-=-=",,,,,,,,,,,,
+6,TROSMShape,"This Shape represent an OpenStreetMap background object which tracks the camera zoom level and translation to build a view of the corresponding part of the OpenStreetMap.
+
+A similar approach could work with Google maps.
+
+Instance Variables
+	osmZoomLevel:		<Integer>
+	position:		<Point>
+	rectangle:	<Rectangle>
+	scale:		<Point>
+	tiles:		<Dictionary of Point -> Form>
+	zoom:		<Point>
+
+osmZoomLevel
+	- the zoom level in the OSM range (0 to 18, integer)
+
+position
+	- position of the shape
+
+rectangle
+	- bounds of the shape
+
+scale
+	- the scale of the shape
+
+tiles
+	- the cache of tiles, indexed by x, y
+
+zoom
+	- zoom of the shape
+
+
+Principle:
+	1.0 in Roassal space -> 1km in OSM. 
+	R zoom to OSM zoom level: (base is 1km/pixel) 
+		1000 * Rzoom = 156543.034 meters/pixel / (2 ^ zoomlevel)
+		zoomlevel = ln( 156.543034 * Rzoom ) / ln 2
+		remainderZoom =  156.543034 * Rzoom / (2 ^ zoomlevel))
+		lon to Roassal space = [ :l | 40075.016686 * (l / 360) ]
+		lat to Roassal space = [ :l | ((Float pi / 4) + (l degreesToRadians / 2)) tan ln * 40075.016686 / (2.0 * Float pi) ]
+		Remember : working limit for lat/lon is ±85.05113°
+
+Goal:
+	depending on the RTView size and the canvas parameters, get the right tiles from OSM and display them.
+
+Algorithm:
+	From the camera, get the zoom level and offset.
+	Compute the OSM zoom level (with the camera zoom value).
+	Make remainder zoom a transform inside the TROSMShape.
+	Take corners of bounding box, get lat / long, get tiles x and y based on previous zoom level.
+	Set clipping rectangle to TROSMShape bounds.
+	Display each tile.
+	cache each tile. When displaying, check if tile exists. Remove tile if not used in display.","""This Shape represent an OpenStreetMap background object which tracks the camera zoom level and translation to build a view of the corresponding part of the OpenStreetMap.","""This Shape represent an OpenStreetMap background object which tracks the camera zoom level and translation to build a view of the corresponding part of the OpenStreetMap.",,"osmZoomLevel
+        - the zoom level in the OSM range (0 to 18, integer)
+
+position
+        - position of the shape
+
+rectangle
+        - bounds of the shape
+
+scale
+        - the scale of the shape
+
+tiles
+        - the cache of tiles, indexed by x, y
+
+zoom
+        - zoom of the shape","Principle:
+	1.0 in Roassal space -> 1km in OSM. 
+	R zoom to OSM zoom level: (base is 1km/pixel) 
+		1000 * Rzoom = 156543.034 meters/pixel / (2 ^ zoomlevel)
+		zoomlevel = ln( 156.543034 * Rzoom ) / ln 2
+		remainderZoom =  156.543034 * Rzoom / (2 ^ zoomlevel))
+		lon to Roassal space = [ :l | 40075.016686 * (l / 360) ]
+		lat to Roassal space = [ :l | ((Float pi / 4) + (l degreesToRadians / 2)) tan ln * 40075.016686 / (2.0 * Float pi) ]
+		Remember : working limit for lat/lon is ±85.05113°
+
+Goal:
+	depending on the RTView size and the canvas parameters, get the right tiles from OSM and display them.
+
+Algorithm:
+	From the camera, get the zoom level and offset.
+	Compute the OSM zoom level (with the camera zoom value).
+	Make remainder zoom a transform inside the TROSMShape.
+	Take corners of bounding box, get lat / long, get tiles x and y based on previous zoom level.
+	Set clipping rectangle to TROSMShape bounds.
+	Display each tile.
+	cache each tile. When displaying, check if tile exists. Remove tile if not used in display.""","Instance Variables
+        osmZoomLevel:                <Integer>
+        position:                <Point>
+        rectangle:        <Rectangle>
+        scale:                <Point>
+        tiles:                <Dictionary of Point -> Form>
+        zoom:                <Point>
+
+osmZoomLevel
+        - the zoom level in the OSM range (0 to 18, integer)
+
+position
+        - position of the shape
+
+rectangle
+        - bounds of the shape
+
+scale
+        - the scale of the shape
+
+tiles
+        - the cache of tiles, indexed by x, y
+
+zoom
+        - zoom of the shape",,,,,,,,,,,,A similar approach could work with Google maps.,,,,
+7,JQLoad,Load HTML from a remote file and inject it into the DOM.,,Load HTML from a remote file and inject it into the DOM.,,,,,,,,,,,,,,,,,,,,
+7,WABulkReapingCache,"I am a cache that reaps all elements at once instead of incrementally.
+
+I am intended to be used in GemStone/S instead of WAHashCache. A background process should send #reap to me.
+
+    Instance Variables
+        dictionary:                <Dictionary>",I am a cache that reaps all elements at once instead of incrementally.,,I am intended to be used in GemStone/S instead of WAHashCache. A background process should send #reap to me.,,,"Instance Variables
+        dictionary:                <Dictionary>",,,WAHashCache,,,,,,,,,,A background process should send #reap to me.,,,
+7,WACancelButtonTag,Creates a Cancel submit button.,,Creates a Cancel submit button.,,,,,,,,,,,,,,,,,,,,
+7,WACanvasWidget,A common superclass for all widgets that want to use WAHtmlCanvas as their renderer.,A common superclass for all widgets that want to use WAHtmlCanvas as their renderer.,,,,,,,A common superclass for all widgets that want to use WAHtmlCanvas as their renderer.,WAHtmlCanvas,,,,,,,,,,,,,
+7,WAComboResponse,"WAComboResponse is a combination of a buffered and a streaming response. By default, WAComboResponse will buffer the entire response to be sent at the end of the request processing cycle. If streaming is desired, the response can be flushed by sending it the #flush message. Flushing a response will sent all previously buffered data using chunked transfer-encoding (which preserves persistent connections). Clients can flush the response as often as they want at appropriate points in their response generation; everything buffered up to that point will be sent. For example, a search results page might use something like:
+
+renderContentOn: aCanvas
+	""Render the search page""
+
+	self renderSearchLabelOn: aCanvas.
+	aCanvas flush. ""flush before starting search to give immediate feedback""
+
+	self searchResultsDo:[:aResult|
+		self renderSearchResultOn: aCanvas.
+		aCanvas flush. ""flush after each search result""
+	].
+
+After a response has been flushed once, header modifications are no longer possible and will raise a WAIllegalStateException.
+
+Server adaptors need to be aware that a committed response must be closed, when complete. An uncommitted response should be handled as usual by the server adapter.","""WAComboResponse is a combination of a buffered and a streaming response.","By default, WAComboResponse will buffer the entire response to be sent at the end of the request processing cycle. If streaming is desired, the response can be flushed by sending it the #flush message.","Flushing a response will sent all previously buffered data using chunked transfer-encoding (which preserves persistent connections). Clients can flush the response as often as they want at appropriate points in their response generation; everything buffered up to that point will be sent. 
+
+After a response has been flushed once, header modifications are no longer possible and will raise a WAIllegalStateException.
+
+Server adaptors need to be aware that a committed response must be closed, when complete. An uncommitted response should be handled as usual by the server adapter.""",,,,,,,"For example, a search results page might use something like:
+
+renderContentOn: aCanvas
+	""""Render the search page""""
+
+	self renderSearchLabelOn: aCanvas.
+	aCanvas flush. """"flush before starting search to give immediate feedback""""
+
+	self searchResultsDo:[:aResult|
+		self renderSearchResultOn: aCanvas.
+		aCanvas flush. """"flush after each search result""""
+	].",,,,,,,,,,,,
+7,WACookie,"I represent a cookie, a piece of information that is stored on the client and read and writable by the server. I am basically a key/value pair of strings.
+You can never trust information in a cookie, the client is free to edit it.
+I model only a part of the full cookie specification.
+
+Browser support:
+http://www.mnot.net/blog/2006/10/27/cookie_fun
+
+Netscape spec
+http://cgi.netscape.com/newsref/std/cookie_spec.html
+
+Cookie spec
+http://tools.ietf.org/html/rfc2109
+
+Cookie 2 spec
+https://tools.ietf.org/html/rfc6265
+
+HttpOnly
+http://msdn2.microsoft.com/en-us/library/ms533046.aspx
+https://bugzilla.mozilla.org/show_bug.cgi?id=178993
+
+Compared to WARequestCookie I represent the information that is sent to the user agent.","I represent a cookie, a piece of information that is stored on the client and read and writable by the server. I am basically a key/value pair of strings.
+I represent the information that is sent to the user agent.",I model only a part of the full cookie specification.,Compared to WARequestCookie I represent the information that is sent to the user agent.,,"Browser support:
+http://www.mnot.net/blog/2006/10/27/cookie_fun
+
+Netscape spec
+http://cgi.netscape.com/newsref/std/cookie_spec.html
+
+Cookie spec
+http://tools.ietf.org/html/rfc2109
+
+Cookie 2 spec
+https://tools.ietf.org/html/rfc6265
+
+HttpOnly
+http://msdn2.microsoft.com/en-us/library/ms533046.aspx
+https://bugzilla.mozilla.org/show_bug.cgi?id=178993",,"Browser support:
+http://www.mnot.net/blog/2006/10/27/cookie_fun
+
+Netscape spec
+http://cgi.netscape.com/newsref/std/cookie_spec.html
+
+Cookie spec
+http://tools.ietf.org/html/rfc2109
+
+Cookie 2 spec
+https://tools.ietf.org/html/rfc6265
+
+HttpOnly
+http://msdn2.microsoft.com/en-us/library/ms533046.aspx
+https://bugzilla.mozilla.org/show_bug.cgi?id=178993",,,,,,"You can never trust information in a cookie, the client is free to edit it.",,"Browser support:
+http://www.mnot.net/blog/2006/10/27/cookie_fun
+
+Netscape spec
+http://cgi.netscape.com/newsref/std/cookie_spec.html
+
+Cookie spec
+http://tools.ietf.org/html/rfc2109
+
+Cookie 2 spec
+https://tools.ietf.org/html/rfc6265
+
+HttpOnly
+http://msdn2.microsoft.com/en-us/library/ms533046.aspx
+https://bugzilla.mozilla.org/show_bug.cgi?id=178993",,,,,,,
+7,WACopyHandlerPlugin,I make a copy of an application.,,I make a copy of an application.,,,,,,,,,,,,,,,,,,,,
+7,WADatalistTag,"datalist together with the a new list attribute for input is used to make comboboxes:
+
+<input list=browsers>
+<datalist id=browsers>
+ <option value=""Safari"">
+ <option value=""Internet Explorer"">
+ <option value=""Opera"">
+ <option value=""Firefox"">
+</datalist>",,datalist together with the a new list attribute for input is used to make comboboxes:,,,,,,,,"<input list=browsers>
+<datalist id=browsers>
+ <option value=""Safari"">
+ <option value=""Internet Explorer"">
+ <option value=""Opera"">
+ <option value=""Firefox"">
+</datalist>",,,,,,,,,,,,
+7,WADelayedAnswerDecoration,"WADelayedAnswerDecoration adds a delay in displaying a component. 
+
+See WADelayFunctionalTest for sample usage.
+Select 'Delay"" tab of the Functional Seaside Test Suite to run an example  (http://127.0.0.1:xxxx/tests/functional/WADelayFunctionalTest)
+
+Instance Variables:
+        delay        <Integer>        delay length in seconds",,WADelayedAnswerDecoration adds a delay in displaying a component.,,,,"Instance Variables:
+        delay        <Integer>        delay length in seconds","See WADelayFunctionalTest for sample usage.
+Select 'Delay"" tab of the Functional Seaside Test Suite to run an example  (http://127.0.0.1:xxxx/tests/functional/WADelayFunctionalTest)",,,,,,,,"Select 'Delay"" tab of the Functional Seaside Test Suite to run an example  (http://127.0.0.1:xxxx/tests/functional/WADelayFunctionalTest)",,,,,,,
+7,WADevelopment,A WADevelopment is a collection of convenience methods for dealing with Seaside development in Squeak. This code is not supposed to be ported.,A WADevelopment is a collection of convenience methods for dealing with Seaside development in Squeak.,A WADevelopment is a collection of convenience methods for dealing with Seaside development in Squeak.,,,,,,,,,,,This code is not supposed to be ported.,,,,,,,,,
+7,WADynamicVariable,I exist for legacy purposes. You should subclass GRDynamicVariable.,,I exist for legacy purposes.,,,,,,,,,,,,,,,You should subclass GRDynamicVariable.,,,,,
+7,WAEncoder,I encode everything that is written to myself using #nextPut: and #nextPutAll: onto the wrapped stream.,,I encode everything that is written to myself using #nextPut: and #nextPutAll: onto the wrapped stream.,,I encode everything that is written to myself using #nextPut: and #nextPutAll: onto the wrapped stream.,,,,,,,,,,,,,,,,,,
+7,WAErrorHandler,"WAErrorHandler catches Errors and Warnings and provides two methods for handling each type of exception:
+
+handleError:
+handleWarning:
+
+If either method is not implemented, the default implementation will call #handleDefault:, which can be used to provide common behaviour for both exception types.",,WAErrorHandler catches Errors and Warnings and provides two methods for handling each type of exception:,WAErrorHandler catches Errors and Warnings and provides two methods for handling each type of exception:,"handleError:
+handleWarning:","If either method is not implemented, the default implementation will call #handleDefault:, which can be used to provide common behaviour for both exception types.",,,,"Error
+Warning",,,,"If either method is not implemented, the default implementation will call #handleDefault:, which can be used to provide common behaviour for both exception types.",,,,,,,,,
+7,WAExpiringCache,"I am the abstract base class for caches that remove entries. Subclasses are intended to use to track sessions.
+
+    Instance Variables
+        maximumSize                        <Integer>
+        maximumRelativeAge                <Integer>
+        maximumAbsoluteAge        <Integer>
+        overflowAction                        <Symbol>
+                                
+maximumSize:
+        Number of sessions supported. When this limit is reached the overflow action is run. 0 for no maximum size. Has to be positive.
+
+maximumRelativeAge:
+        After so many seconds of inactivity a session is considered expired. 0 for no limit. Has to be positive.
+
+maximumAbsoluteAge:
+        After so many seconds after its creation a session is considered expired no matter when it was last accessed. 0 for no limit. Has to be positive.
+
+overflowAction:
+        What to do when the maximum number of sessions is reached. Only matters when the maximum size is bigger than 0.
+        Possible values:
+                #removeRelativeOldest remove the entry that hasn't been accessed for the longest time
+                #removeAbsoluteOldest remove the entry that has been created the longest time ago
+                #signalError signal WAMaximumNumberOfSessionsExceededError",I am the abstract base class for caches that remove entries.,,,"maximumSize:
+        Number of sessions supported. When this limit is reached the overflow action is run. 0 for no maximum size. Has to be positive.
+
+maximumRelativeAge:
+        After so many seconds of inactivity a session is considered expired. 0 for no limit. Has to be positive.
+
+maximumAbsoluteAge:
+        After so many seconds after its creation a session is considered expired no matter when it was last accessed. 0 for no limit. Has to be positive.
+
+overflowAction:
+        What to do when the maximum number of sessions is reached. Only matters when the maximum size is bigger than 0.
+        Possible values:
+                #removeRelativeOldest remove the entry that hasn't been accessed for the longest time
+                #removeAbsoluteOldest remove the entry that has been created the longest time ago
+                #signalError signal WAMaximumNumberOfSessionsExceededError",,"Instance Variables
+        maximumSize                        <Integer>
+        maximumRelativeAge                <Integer>
+        maximumAbsoluteAge        <Integer>
+        overflowAction                        <Symbol>",,Subclasses are intended to use to track sessions.,,,,,,,,,,,When this limit is reached the overflow action is run. 0 for no maximum size. Has to be positive.,,,
+7,WAFormCharEncodingFromHandlerTest,I test that the encoding from the handler is taken if a handler is present but a codec is missing.,,I test that the encoding from the handler is taken if a handler is present but a codec is missing.,,,,,,,,,,,,,,,,,,,,
+7,WAFormDecoration,"A WAFormDecoration places its component inside an html form tag. The buttons inst var must be set. The component that a WAFormDecoration decorates must implement the method ""defaultButton"", which returns the string/symbol of the default button (one selected by default) of the form. Don't place any decorators between WAFormDecoration and its component otherwise ""defaultButton"" method fails. For each string/symbol in the buttons inst var the decorated component must implement a method of the same name, which is called when the button is selected.
+
+Instance Variables
+        buttons:                <Collection of strings or symbols>
+
+buttons
+        - list of strings or symbols, each string/symbol is the label (first letter capitalized) for a button and the name of the callback method on component when button is pressed,",,A WAFormDecoration places its component inside an html form tag.,A WAFormDecoration places its component inside an html form tag.,"buttons
+        - list of strings or symbols, each string/symbol is the label (first letter capitalized) for a button and the name of the callback method on component when button is pressed,",,"Instance Variables
+        buttons:                <Collection of strings or symbols>",,,,,,,"Don't place any decorators between WAFormDecoration and its component otherwise ""defaultButton"" method fails.",,,,,,"The buttons inst var must be set. The component that a WAFormDecoration decorates must implement the method ""defaultButton"", which returns the string/symbol of the default button (one selected by default) of the form. 
+
+ For each string/symbol in the buttons inst var the decorated component must implement a method of the same name, which is called when the button is selected.",,,
+7,WAFormTag,"The FORM element acts as a container for input elements and buttons.
+
+Evaluation order:
+The input fields callbacks will be evaluated in the order they
+appear in the XHTML. Buttons will always be evaluated last, no matter
+where they are positioned.",,The FORM element acts as a container for input elements and buttons.,The FORM element acts as a container for input elements and buttons.,,"Evaluation order:
+The input fields callbacks will be evaluated in the order they
+appear in the XHTML. Buttons will always be evaluated last, no matter
+where they are positioned.",,,,,,,,,,,,,,,,,
+7,WAHtmlHaltAndErrorHandler,"This exception handler also catches halts, in order to prevent Debugger windows from popping up and blocking server processes in deployed images.
+
+Subclass this to provide a customized response or more advanced handling (e.g. emailing of errors).",,"This exception handler also catches halts, in order to prevent Debugger windows from popping up and blocking server processes in deployed images.","This exception handler also catches halts, in order to prevent Debugger windows from popping up and blocking server processes in deployed images.",,,,,Subclass this to provide a customized response or more advanced handling (e.g. emailing of errors).,,,,,,,,,,,,,,
+7,WAIframeTag,"The IFRAME element allows authors to insert a frame within a block of text. Inserting an inline frame within a section of text is much like inserting an object via the OBJECT element: they both allow you to insert an HTML document in the middle of another, they may both be aligned with surrounding text, etc. 
+
+The information to be inserted inline is designated by the src attribute of this element. The contents of the IFRAME element, on the other hand, should only be displayed by user agents that do not support frames or are configured not to display frames.
+
+Inline frames may not be resized.",,The IFRAME element allows authors to insert a frame within a block of text.,,,"The information to be inserted inline is designated by the src attribute of this element. The contents of the IFRAME element, on the other hand, should only be displayed by user agents that do not support frames or are configured not to display frames.",,,,,"Inserting an inline frame within a section of text is much like inserting an object via the OBJECT element: they both allow you to insert an HTML document in the middle of another, they may both be aligned with surrounding text, etc.",,,Inline frames may not be resized.,,,,,,,,,
+7,WAImageButtonTag,"Creates a graphical submit button. The value of the src attribute specifies the URI of the image that will decorate the button. For accessibility reasons, authors should provide alternate text for the image via the alt attribute. 
+
+When a pointing device is used to click on the image, the form is submitted and the click coordinates passed to the server. The x value is measured in pixels from the left of the image, and the y value in pixels from the top of the image. The submitted data includes name.x=x-value and name.y=y-value where ""name"" is the value of the name attribute, and x-value and y-value are the x and y coordinate values, respectively.",,"""Creates a graphical submit button. The value of the src attribute specifies the URI of the image that will decorate the button.",,,"For accessibility reasons, authors should provide alternate text for the image via the alt attribute. 
+
+When a pointing device is used to click on the image, the form is submitted and the click coordinates passed to the server. The x value is measured in pixels from the left of the image, and the y value in pixels from the top of the image. The submitted data includes name.x=x-value and name.y=y-value where """"name"""" is the value of the name attribute, and x-value and y-value are the x and y coordinate values, respectively.""",,,,,,,src attribute specifies the URI,"For accessibility reasons, authors should provide alternate text for the image via the alt attribute.",,,,,,,,,
+7,WAImageStatus,A WAImageStatus displays information about the current Smalltalk image.,,A WAImageStatus displays information about the current Smalltalk image.,,,,,,,,,,,,,,,,,,,,
+7,WAInspector,"This is an abstract implementation of a web-based object inspector. Platforms should implement their own subclasses, specifying behaviour for all unimplemented methods.
+
+Note that #openNativeInspectorOn: on the class-side also needs to be implemented.
+
+Also subclasses probably want to implement #initialize and #unload on the class-side to call 'self select' and 'self unselect' respectively. This will ensure they are registered as the current implementation when they are loaded.","""This is an abstract implementation of a web-based object inspector.","Platforms should implement their own subclasses, specifying behaviour for all unimplemented methods.",,,,,,"Also subclasses probably want to implement #initialize and #unload on the class-side to call 'self select' and 'self unselect' respectively. This will ensure they are registered as the current implementation when they are loaded.""",,,,,Note that #openNativeInspectorOn: on the class-side also needs to be implemented.,,,,,,,,,
+7,WAInvisibleSessionTrackingStrategy,I am the abstract base class for classes that that use some request attribute that is present on every request for tracking sessions. For document handlers query fields are used.,I am the abstract base class,for classes that that use some request attribute that is present on every request for tracking sessions.,For document handlers query fields are used.,,,,,,,,,,,,,,,,,,,
+7,WALabelledFormDialog,"WALabelledFormDialog is an abstract class for generating html forms. Given a data model WALabelledFormDialog displays a label and input field for each instance variable of interest. User supplied data is placed in the data model.
+
+Subclasses need to implment the methods labelForSelector:, model, and rows. The ""model"" method just returns the object whose fields we wish to populate with date. The ""rows"" method returns a collections of symbols. One symbol for each row of data in the dialog. The symbol is used generate the accessor methods for the data in the model. The method ""labelForSelector:"" returns the labels for each row and each submit button in the form.
+
+A standard text input field is used for each row of data. To use other html widgets for input for = a datum implement the method renderXXXOn: where XXX is the symbol for the row. See ""renderNameOn:"" in example below.
+
+The default form has one button ""Ok"". Override the ""buttons"" method to change the text or number of submit buttons on the form. Override the ""defaultButton"" method to indicate which button is the default. For each button in the form the subclass needs a method with the same name as the button, which is called when the user clicks that button. See example below.
+
+LabelledFormDialogExample subclass of WALabelledFormDialog instance methods
+        initialize
+                super initialize.
+                contact := Contact new. ""contact is an inst var""
+                self addMessage: 'Please enter the followning information'.
+
+        model
+                ^ contact
+
+        ok
+                self answer: contact
+
+        cancel
+                self answer
+
+        rows
+                ^ #(name phoneNumber)
+
+        buttons
+                #(ok cancel)
+
+        labelForSelector: aSymbol
+                aSymbol == #name ifTrue: [^'Your Name'].
+                aSymbol == #phoneNumber ifTrue: [^'Phone Number'].
+                aSymbol == #ok ifTrue: [^'Ok'].
+                aSymbol == #cancel ifTrue: [^'Cancel'].
+                ^ super labelForSelector: aSymbol
+
+        renderNameOn: html 
+                ""Show how to specily special input instead of using simple text field.""
+                (html select)
+                                list: #('Roger' 'Pete');
+                                selected: 'Roger';
+                                callback: [:v | contact name: v]
+
+Contact Class used above has instance variables name, phoneNumber with standard getter and setter methods",WALabelledFormDialog is an abstract class for generating html forms.,"Given a data model WALabelledFormDialog displays a label and input field for each instance variable of interest. User supplied data is placed in the data model.
+
+A standard text input field is used for each row of data. To use other html widgets for input for = a datum implement the method renderXXXOn: where XXX is the symbol for the row. See ""renderNameOn:"" in example below.",,"Contact Class used above has instance variables name, phoneNumber with standard getter and setter methods.
+ model
+                ^ contact
+
+        ok
+                self answer: contact
+
+        cancel
+                self answer
+
+        rows
+                ^ #(name phoneNumber)
+
+        buttons
+                #(ok cancel)
+         labelForSelector: aSymbol
+                aSymbol == #name ifTrue: [^'Your Name'].
+                aSymbol == #phoneNumber ifTrue: [^'Phone Number'].
+                aSymbol == #ok ifTrue: [^'Ok'].
+                aSymbol == #cancel ifTrue: [^'Cancel'].
+                ^ super labelForSelector: aSymbol","The default form has one button ""Ok"". Override the ""buttons"" method to change the text or number of submit buttons on the form. Override the ""defaultButton"" method to indicate which button is the default. For each button in the form the subclass needs a method with the same name as the button, which is called when the user clicks that button. See example below.","Contact Class used above has instance variables name, phoneNumber with standard getter and setter methods
+   contact := Contact new. ""contact is an inst var""",,"Subclasses need to implment the methods labelForSelector:, model, and rows. The ""model"" method just returns the object whose fields we wish to populate with date. The ""rows"" method returns a collections of symbols. One symbol for each row of data in the dialog. The symbol is used generate the accessor methods for the data in the model. The method ""labelForSelector:"" returns the labels for each row and each submit button in the form.",,"LabelledFormDialogExample subclass of WALabelledFormDialog instance methods
+        initialize
+                super initialize.
+                contact := Contact new. ""contact is an inst var""
+                self addMessage: 'Please enter the followning information'.
+
+        model
+                ^ contact
+
+        ok
+                self answer: contact
+
+        cancel
+                self answer
+
+        rows
+                ^ #(name phoneNumber)
+
+        buttons
+                #(ok cancel)
+
+        labelForSelector: aSymbol
+                aSymbol == #name ifTrue: [^'Your Name'].
+                aSymbol == #phoneNumber ifTrue: [^'Phone Number'].
+                aSymbol == #ok ifTrue: [^'Ok'].
+                aSymbol == #cancel ifTrue: [^'Cancel'].
+                ^ super labelForSelector: aSymbol
+
+        renderNameOn: html 
+                ""Show how to specily special input instead of using simple text field.""
+                (html select)
+                                list: #('Roger' 'Pete');
+                                selected: 'Roger';
+                                callback: [:v | contact name: v]",,,,,,,,,,,,
+7,WAListAttribute,"WAListAttribute is an attribute that is restricted to a list of values. 
+
+Instance Variables:
+        options        <Block>        A block returning a list of possible values for the attribute",WAListAttribute is an attribute that is restricted to a list of values.,,,,,"Instance Variables:
+        options        <Block>        A block returning a list of possible values for the attribute",,,,,,,,,,,,,,,,
+7,WAMemoryInput,"A WAMemoryInput is a dialog that allows the user to enter an amount of memory.
+
+This is a Seaside internal class. Do not rely on it being present. If you need it, copy and paste it.","""A WAMemoryInput is a dialog that allows the user to enter an amount of memory. This is a Seaside internal class.","""A WAMemoryInput is a dialog that allows the user to enter an amount of memory.",,,,,,,,,,,"Do not rely on it being present. If you need it, copy and paste it.""",,,,"This is a Seaside internal class. Do not rely on it being present. If you need it, copy and paste it.",,,,,
+7,WAMemoryToolPlugin,I display the memory usage tool.,,I display the memory usage tool.,,,,,,,,,,,,,,,,,,,,
+7,WAObjectTag,"Defines an embedded object. Use this element to add multimedia to your XHTML page.
+This element allows you to specify the data and parameters for objects inserted into HTML documents, and the code that can be used to display/manipulate that data.",Defines an embedded object,"Use this element to add multimedia to your XHTML page.This element allows you to specify the data and parameters for objects inserted into HTML documents, and the code that can be used to display/manipulate that data.",,,,,,,,,,,,,,,Use this element to add multimedia to your XHTML page.,,,,,
+7,WAOptionGroupTag,"The OPTGROUP element allows authors to group choices logically. This is particularly helpful when the user must choose from a long list of options; groups of related choices are easier to grasp and remember than a single long list of options.
+
+It has crappy browser support and noone as ever used it. See WAInputTest >> #renderOptionGroupOn: for examples.",,The OPTGROUP element allows authors to group choices logically. This is particularly helpful when the user must choose from a long list of options; groups of related choices are easier to grasp and remember than a single long list of options.,,,,,See WAInputTest >> #renderOptionGroupOn: for examples.,,WAInputTest >> #renderOptionGroupOn: for examples.,WAInputTest >> #renderOptionGroupOn: for examples.,,,It has crappy browser support and noone as ever used it.,It has crappy browser support and noone as ever used it.,,,,This is particularly helpful when the user must choose from a long list of options; groups of related choices are easier to grasp and remember than a single long list of options.,,,,
+7,WAPainterVisitor,An implementation of the Visitor pattern for Painter subclasses.,An implementation of the Visitor pattern for Painter subclasses.,An implementation of the Visitor pattern for Painter subclasses.,An implementation of the Visitor pattern for Painter subclasses.,,,,,An implementation of the Visitor pattern for Painter subclasses.,,,,,,,,,,,,,,
+7,WAPath,"WAPath represents a path navigation (breadcrumbs) for a web page and displays standard breadcrumbs(xxx >> yyy >> zzz). WAPath maintains a stack of associations, one for each ""location"" or ""page"" in the path. The association key is the text that is displayed in the breadcrimb. The association value is an object of your choosing, which your code uses to restore that ""page"". 
+
+To add to the path use the method WAPath>>pushSegment: anObject name: 'lulu'. The name: arguement is the association key, the segment: argument is the association value.
+
+The method WAPath>>currentSegment returns object associated with the current ""page"". Your code is not notified when the user clicks on a link in the WAPath object. So when you render a page call WAPath>>currentSegment to get the current object, and generate the page accordingly.
+
+See WAInspector for example use.
+
+Use WATrail to handle breadcrumbs for sequences of call: and answers:.
+
+Instance Variables:
+        stack        <Array of associations(String->Object) > History of the page. Keys -> display string, values -> object used in helping generating page.",WAPath represents a path navigation (breadcrumbs) for a web page,"and displays standard breadcrumbs(xxx >> yyy >> zzz). WAPath maintains a stack of associations,","one for each ""location"" or ""page"" in the path. The association key is the text that is displayed in the breadcrimb. The association value is an object of your choosing, which your code uses to restore that ""page"".","To add to the path use the method WAPath>>pushSegment: anObject name: 'lulu'. The name: arguement is the association key, the segment: argument is the association value.
+
+The method WAPath>>currentSegment returns object associated with the current ""page"". Your code is not notified when the user clicks on a link in the WAPath object. So when you render a page call WAPath>>currentSegment to get the current object, and generate the page accordingly.",,"Instance Variables:
+        stack        <Array of associations(String->Object) > History of the page. Keys -> display string, values -> object used in helping generating page.","See WAInspector for example use.
+Use WATrail to handle breadcrumbs for sequences of call: and answers:.",,"WAInspector
+WATrail",,,,,,,,,,,,,
+7,WAPharoEncoder,I am  the common superclass for Pharo encoders.,I am  the common superclass for Pharo encoders.,I am  the common superclass for Pharo encoders.,,,,,,,,,,,,,,,,,,,,
+7,WAPharoUrlEncoder,I am a Pharo specific URL encoder.,I am a Pharo specific URL encoder.,,,,,,,,,,,URL,,,,,,,,,,
+7,WAPharoXmlEncoder,I am a Pharo specific XML encoder.,I am a Pharo specific XML encoder.,,,,,,,,,,,XML,,,,,,,,,,
+7,WAPlugin,"I am an abstract root class for all plugins. Plugins are an easy way to add or remove additional tools without changing the codebase. To add a new plugin make sure you choose the right superclass so that the tool can detect your code.
+
+The appearance of all plugins, such as icons, has to be configured using CSS.",I am an abstract root class for all plugins,"Plugins are an easy way to add or remove additional tools without changing the codebase. To add a new plugin make sure you choose the right superclass so that the tool can detect your code.
+
+The appearance of all plugins, such as icons, has to be configured using CSS.",,,,,,,,,,,,,,,,,"The appearance of all plugins, such as icons, has to be configured using CSS.",,,
+7,WAProtectionFilter,"The protection filter ensures that the wrapped request handler only accepts requests from the same IP. Do add this filter to a WASession for example to avoid session hijacking, do not add it to static request handlers such as WAApplication or WADispatcher as this might restrict access to the handler if your IP changes.
+
+Note that checking for IP addresses is not bullet proof and should never be used as the sole security measure for a web application as IP addresses can be easily spoofed.",,"""The protection filter ensures that the wrapped request handler only accepts requests from the same IP. Do add this filter to a WASession for example to avoid session hijacking, do not add it to static request handlers such as WAApplication or WADispatcher as this might restrict access to the handler if your IP changes.",,,,,,,,,,,"Note that checking for IP addresses is not bullet proof and should never be used as the sole security measure for a web application as IP addresses can be easily spoofed.""",,,,"Do add this filter to a WASession for example to avoid session hijacking, do not add it to static request handlers such as WAApplication or WADispatcher as this might restrict access to the handler if your IP changes.",,,,,
+7,WARedirectingRegistry,I revert to the old < 3.3.0 behavior which is easier for tests.,,I revert to the old < 3.3.0 behavior which is easier for tests.,,,,,,,,,,,,,,,,,,,,
+7,WARequestContext,"WARequestContext encapsulates all the knowledge that should be available while processing a single request. It does not matter if this is a request to a static file, an AJAX request, a long Comet request or a normal Seaside requestion.
+
+The request context is valid only during the request that caused it. It should not be stored. Neither within instance variables, nor within the execution stack so that it might be captured by a continuation. In both cases this might lead to memory leaks.",,"WARequestContext encapsulates all the knowledge that should be available while processing a single request. It does not matter if this is a request to a static file, an AJAX request, a long Comet request or a normal Seaside requestion.",,,The request context is valid only during the request that caused it.,,,,,,,,"It should not be stored. Neither within instance variables, nor within the execution stack so that it might be captured by a continuation. In both cases this might lead to memory leaks.",,,,"It should not be stored. Neither within instance variables, nor within the execution stack so that it might be captured by a continuation. In both cases this might lead to memory leaks.",,,,,
+7,WARequestContextNotFound,This exception is raised when trying to obtain the current request context when none is available.,,,,,,,,,,,,,,,,,,,This exception is raised when trying to obtain the current request context when none is available.,,,
+7,WARubyFunctionalTest,"Examples taken directly from spec:
+http://www.w3.org/TR/2001/REC-ruby-20010531/",,,,,,,,,,,,"Examples taken directly from spec:
+http://www.w3.org/TR/2001/REC-ruby-20010531/",,,"Examples taken directly from spec:
+http://www.w3.org/TR/2001/REC-ruby-20010531/",,,,,,,
+7,WASelection,"WASelection creates a selectable list. Items can be any object. If optional labelBlock is not given the string versions of the items are displayed to user, otherwise labelBlock is used to generate the text to display for each item. Returns the item selected by user, (not the index nor the text shown the user). 
+
+        | selection |
+        selection := WASelection new.
+        selection items: #(1 'cat' 'rat').
+        selection 
+                labelBlock: [:item | item = 1 ifTrue: ['First'] ifFalse: [item asUppercase]].
+        result := self call: selection.
+        self inform: result printString
+
+Instance Variables:
+        items        <Array of Objects>         
+        labelBlock        <One arg Block>",,WASelection creates a selectable list.,,,"Items can be any object. If optional labelBlock is not given the string versions of the items are displayed to user, otherwise labelBlock is used to generate the text to display for each item. Returns the item selected by user, (not the index nor the text shown the user).","Instance Variables:
+        items        <Array of Objects>         
+        labelBlock        <One arg Block>",,,,"| selection |
+        selection := WASelection new.
+        selection items: #(1 'cat' 'rat').
+        selection 
+                labelBlock: [:item | item = 1 ifTrue: ['First'] ifFalse: [item asUppercase]].
+        result := self call: selection.
+        self inform: result printString",,,,,,,,,,,,
+7,WAServerAdaptor,"A WAServer is the abstract base class for all servers. Actual servers do not have to subclass it but have to support the protocol:
+ - #codec
+ - #usesSmalltalkEncoding
+
+Instance Variables
+        codec:                <WACodec>
+
+codec
+        - the codec used for response conversion from characters to bytes",A WAServer is the abstract base class for all servers.,,,"- #codec
+ - #usesSmalltalkEncoding
+
+codec
+        - the codec used for response conversion from characters to bytes",,"Instance Variables
+        codec:                <WACodec>",,,,,,,,,,Actual servers do not have to subclass it but have to support the protocol:,,,,,,
+7,WATagBrush,"This is the superclass for all XML element classes. Its main additions are
+- element name (#tag)
+- attributes (instance of WAHtmlAttributes)
+- common events (onXXX), this is a hack and would better be solved with traits","""This is the superclass for all XML element classes.",,,,"Its main additions are
+- element name (#tag)
+- attributes (instance of WAHtmlAttributes)
+- common events (onXXX), this is a hack and would better be solved with traits""",,,,,,,,,this is a hack and would better be solved with traits,,,,,,,,
+7,WAUpTimeTracker,"WAUpTimeTracker is used to track the TimeStamp when the image last booted.
+
+Access the TimeStamp when the image booted as follows:
+
+	WAUpTimeTracker imageBootTime.
+
+Access the Duration how long ago the image booted as follows:
+
+	WAUpTimeTracker imageUpTime.
+
+At system startup the imageBootTime is (re)set automatically.
+
+This is a work around for Time millisecondClockValue wrapping around.",,"""WAUpTimeTracker is used to track the TimeStamp when the image last booted.
+
+Access the TimeStamp when the image booted as follows:
+
+	WAUpTimeTracker imageBootTime.
+
+Access the Duration how long ago the image booted as follows:
+
+	WAUpTimeTracker imageUpTime.
+
+At system startup the imageBootTime is (re)set automatically.","Access the TimeStamp when the image booted as follows:
+
+	WAUpTimeTracker imageBootTime.
+
+Access the Duration how long ago the image booted as follows:
+
+	WAUpTimeTracker imageUpTime.
+
+At system startup the imageBootTime is (re)set automatically.","Access the TimeStamp when the image booted as follows:
+
+	WAUpTimeTracker imageBootTime.
+
+Access the Duration how long ago the image booted as follows:
+
+	WAUpTimeTracker imageUpTime.
+
+At system startup the imageBootTime is (re)set automatically.",,,,,,,,,"This is a work around for Time millisecondClockValue wrapping around.""",,,,,,,,,
+7,WAUrlAttribute,WAUrlAttribute represents a URL attribute. It converts between text entered on the configuration page and WAUrl instances.,WAUrlAttribute represents a URL attribute.,It converts between text entered on the configuration page and WAUrl instances.,,,,,,,,,,,,,,,,,,,,
+7,WAVideoTag,"Supported only on experimental Opera
+http://people.opera.com/howcome/2007/video/
+
+A video element represents a video or movie, with an alternate representation given by its contents.
+
+http://www.whatwg.org/specs/web-apps/current-work/#video
+http://lists.whatwg.org/pipermail/whatwg-whatwg.org/attachments/20070228/6a0cdddc/attachment.txt",,,,,,,"""Supported only on experimental Opera
+http://people.opera.com/howcome/2007/video/
+
+A video element represents a video or movie, with an alternate representation given by its contents.
+
+http://www.whatwg.org/specs/web-apps/current-work/#video
+http://lists.whatwg.org/pipermail/whatwg-whatwg.org/attachments/20070228/6a0cdddc/attachment.txt""",,,,,,,,,,,,,,,

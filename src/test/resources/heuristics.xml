@@ -1,0 +1,1551 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<heuristics>
+
+    <!--Warning-->
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubjpass/aux/neg/auxpass</type>
+        <text>Should not be used.</text>
+        <conditions>
+            <condition>nsubjpass.governor="use"</condition>
+            <condition>nsubjpass.governor=aux.governor</condition>
+            <condition>aux.dependent="should"</condition>
+            <condition>aux.governor=neg.governor</condition>
+            <condition>neg.governor=auxpass.governor</condition>
+            <condition>auxpass.dependent="be"</condition>
+        </conditions>
+        <sentence_class>Warning</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubjpass/prep_as/aux/neg/auxpass</type>
+        <text>[auxiliary] not be used.</text>
+        <conditions>
+            <condition>nsubjpass.governor="use"</condition>
+            <condition>nsubjpass.governor=prep_as.governor</condition>
+            <condition>prep_as.governor=aux.governor</condition>
+            <condition>aux.governor=neg.governor</condition>
+            <condition>neg.governor=auxpass.governor</condition>
+            <condition>auxpass.dependent="be"</condition>
+        </conditions>
+        <sentence_class>Warning</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/aux/dobj</type>
+        <text>[something] should implement method.</text>
+        <conditions>
+            <condition>nsubj.governor="implement"</condition>
+            <condition>nsubj.governor=aux.governor</condition>
+            <condition>aux.dependent="should"</condition>
+            <condition>aux.governor=dobj.governor</condition>
+            <condition>dobj.dependent="method"</condition>
+        </conditions>
+        <sentence_class>Warning</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubjpass/auxpass/neg</type>
+        <text>Is not used.</text>
+        <conditions>
+            <condition>nsubjpass.governor="use"</condition>
+            <condition>nsubjpass.governor=auxpass.governor</condition>
+            <condition>auxpass.dependent="be"</condition>
+            <condition>auxpass.governor=neg.governor</condition>
+            <condition>neg.dependent="never"</condition>
+        </conditions>
+        <sentence_class>Warning</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubjpass/aux/auxpass</type>
+        <text>Can be used.</text>
+        <conditions>
+            <condition>nsubjpass.governor="use"</condition>
+            <condition>nsubjpass.governor=aux.governor</condition>
+            <condition>aux.dependent="can"</condition>
+            <condition>aux.governor=auxpass.governor</condition>
+            <condition>auxpass.dependent="be"</condition>
+        </conditions>
+        <sentence_class>Warning</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>aux/neg</type>
+        <text>[auxiliary] not use.</text>
+        <conditions>
+            <condition>aux.governor="use"</condition>
+            <condition>aux.governor=neg.governor</condition>
+            <condition>neg.dependent="n't"</condition>
+        </conditions>
+        <sentence_class>Warning</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>aux/neg</type>
+        <text>[auxiliary] not rely.</text>
+        <conditions>
+            <condition>aux.governor="rely"</condition>
+            <condition>aux.governor=neg.governor</condition>
+            <condition>neg.dependent="not"</condition>
+        </conditions>
+        <sentence_class>Warning</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>ccomp</type>
+        <text>Notes.</text>
+        <conditions>
+            <condition>ccomp.governor="note"</condition>
+        </conditions>
+        <sentence_class>Warning</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>prep_of</type>
+        <text>should not</text>
+        <conditions>
+            <condition>prep_of.governor="part portion"</condition>
+        </conditions>
+        <sentence_class>Warning</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>neg</type>
+        <text>never use</text>
+        <conditions>
+            <condition>neg.governor="use"</condition>
+        </conditions>
+        <sentence_class>Warning</sentence_class>
+    </NLP_heuristic>
+
+    <!--Collaborators-->
+
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/dobj</type>
+        <text>[something] uses [something].</text>
+        <conditions>
+            <condition>nsubj.governor="use"</condition>
+            <condition>nsubj.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Collaborators</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubjpass/auxpass/xcomp</type>
+        <text>[something] is used by [something].</text>
+        <conditions>
+            <condition>nsubjpass.governor="use"</condition>
+            <condition>nsubjpass.governor=auxpass.governor</condition>
+            <condition>auxpass.dependent="be"</condition>
+            <condition>auxpass.governor=xcomp.governor</condition>
+        </conditions>
+        <sentence_class>Collaborators</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>aux/auxpass</type>
+        <text>[auxiliary] be used.</text>
+        <conditions>
+            <condition>aux.governor="use"</condition>
+            <condition>aux.governor=auxpass.governor</condition>
+            <condition>auxpass.dependent="be"</condition>
+        </conditions>
+        <sentence_class>Collaborators</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/dobj</type>
+        <text>I uses [something].</text>
+        <conditions>
+            <condition>nsubj.governor="use"</condition>
+            <condition>nsubj.dependent="i"</condition>
+            <condition>nsubj.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Collaborators</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubjpass/auxpass/agent</type>
+        <text>I is used.</text>
+        <conditions>
+            <condition>nsubjpass.governor="use"</condition>
+            <condition>nsubjpass.dependent="i"</condition>
+            <condition>nsubjpass.governor=auxpass.governor</condition>
+            <condition>auxpass.dependent="be"</condition>
+            <condition>auxpass.governor=agent.governor</condition>
+        </conditions>
+        <sentence_class>Collaborators</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>aux/dobj</type>
+        <text>To build [something].</text>
+        <conditions>
+            <condition>aux.governor="build"</condition>
+            <condition>aux.dependent="to"</condition>
+            <condition>aux.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Collaborators</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/dobj</type>
+        <text>[something] catches [something].</text>
+        <conditions>
+            <condition>nsubj.governor="catch"</condition>
+            <condition>nsubj.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Collaborators</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>aux</type>
+        <text>To update.</text>
+        <conditions>
+            <condition>aux.governor="update"</condition>
+            <condition>aux.dependent="to"</condition>
+        </conditions>
+        <sentence_class>Collaborators</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/dobj</type>
+        <text>[something] creates [something].</text>
+        <conditions>
+            <condition>nsubj.governor="create"</condition>
+            <condition>nsubj.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Collaborators</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/dobj</type>
+        <text>[something] provides [something].</text>
+        <conditions>
+            <condition>nsubj.governor="provide"</condition>
+            <condition>nsubj.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Collaborators</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>prep_for</type>
+        <text>[something] for [something]</text>
+        <conditions>
+            <condition>prep_for.governor="test"</condition>
+        </conditions>
+        <sentence_class>Collaborators</sentence_class>
+    </NLP_heuristic>
+
+    <!--Examples-->
+
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj</type>
+        <text>[something] -rsb-s.</text>
+        <conditions>
+            <condition>nsubj.governor="-rsb-"</condition>
+        </conditions>
+        <sentence_class>Example</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>ccomp/nsubj</type>
+        <text>[something] asymbols to iftrue and =.</text>
+        <conditions>
+            <condition>ccomp.governor="asymbol"</condition>
+            <condition>ccomp.dependent="iftrue"</condition>
+            <condition>ccomp.dependent=nsubj.governor</condition>
+            <condition>nsubj.dependent="="</condition>
+        </conditions>
+        <sentence_class>Example</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubjpass/auxpass</type>
+        <text>Is used.</text>
+        <conditions>
+            <condition>nsubjpass.governor="use"</condition>
+            <condition>nsubjpass.governor=auxpass.governor</condition>
+            <condition>auxpass.dependent="be"</condition>
+        </conditions>
+        <sentence_class>Example</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>aux/dobj</type>
+        <text>[auxiliary] create instance.</text>
+        <conditions>
+            <condition>aux.governor="create"</condition>
+            <condition>aux.governor=dobj.governor</condition>
+            <condition>dobj.dependent="instance"</condition>
+        </conditions>
+        <sentence_class>Example</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/aux/dobj</type>
+        <text>[something] [auxiliary] use [something].</text>
+        <conditions>
+            <condition>nsubj.governor="utilize use"</condition>
+            <condition>nsubj.governor=aux.governor</condition>
+            <condition>aux.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Example</sentence_class>
+    </NLP_heuristic>
+    <!-- Intent -->
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/dobj</type>
+        <text>I represents [something].</text>
+        <conditions>
+            <condition>nsubj.governor="represent"</condition>
+            <condition>nsubj.dependent="i"</condition>
+            <condition>nsubj.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Intent</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj</type>
+        <text>Represents [something].</text>
+        <conditions>
+            <condition>dobj.governor="represent"</condition>
+        </conditions>
+        <sentence_class>Intent</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/cop</type>
+        <text>I is [something].</text>
+        <conditions>
+            <condition>nsubj.governor="group class"</condition>
+            <condition>nsubj.dependent="i"</condition>
+            <condition>nsubj.governor=cop.governor</condition>
+            <condition>cop.dependent="be"</condition>
+        </conditions>
+        <sentence_class>Intent</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/cop/prep_for</type>
+        <text>[something] is class.</text>
+        <conditions>
+            <condition>nsubj.governor="class"</condition>
+            <condition>nsubj.governor=cop.governor</condition>
+            <condition>cop.dependent="be"</condition>
+            <condition>cop.governor=prep_for.governor</condition>
+        </conditions>
+        <sentence_class>Intent</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/cop</type>
+        <text>I is superclass.</text>
+        <conditions>
+            <condition>nsubj.governor="superclass"</condition>
+            <condition>nsubj.dependent="i"</condition>
+            <condition>nsubj.governor=cop.governor</condition>
+            <condition>cop.dependent="be"</condition>
+        </conditions>
+        <sentence_class>Intent</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/cop/vmod</type>
+        <text>[something] is group.</text>
+        <conditions>
+            <condition>nsubj.governor="class group"</condition>
+            <condition>nsubj.governor=cop.governor</condition>
+            <condition>cop.dependent="be"</condition>
+            <condition>cop.governor=vmod.governor</condition>
+        </conditions>
+        <sentence_class>Intent</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/cop/prep_for</type>
+        <text>[something] is [something].</text>
+        <conditions>
+            <condition>nsubj.governor="renderer"</condition>
+            <condition>nsubj.governor=cop.governor</condition>
+            <condition>cop.dependent="be"</condition>
+            <condition>cop.governor=prep_for.governor</condition>
+        </conditions>
+        <sentence_class>Intent</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/cop/prep_for</type>
+        <text>[something] is superclass.</text>
+        <conditions>
+            <condition>nsubj.governor="superclass"</condition>
+            <condition>nsubj.governor=cop.governor</condition>
+            <condition>cop.dependent="be"</condition>
+            <condition>cop.governor=prep_for.governor</condition>
+        </conditions>
+        <sentence_class>Intent</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj/prep_for</type>
+        <text>Sunits test.</text>
+        <conditions>
+            <condition>dobj.governor="sunit"</condition>
+            <condition>dobj.dependent="test"</condition>
+            <condition>dobj.governor=prep_for.governor</condition>
+        </conditions>
+        <sentence_class>Intent</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/dobj</type>
+        <text>[something] represents</text>
+        <conditions>
+            <condition>nsubj.governor="represent"</condition>
+            <condition>nsubj.governor=dobj.governor</condition>
+            <condition>dobj.dependent="collection package"</condition>
+        </conditions>
+        <sentence_class>Intent</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/dobj</type>
+        <text>That uses [something].</text>
+        <conditions>
+            <condition>nsubj.governor="use"</condition>
+            <condition>nsubj.dependent="that"</condition>
+            <condition>nsubj.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Collaborators</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>ccomp</type>
+        <text>=s.</text>
+        <conditions>
+            <condition>ccomp.governor="="</condition>
+        </conditions>
+        <sentence_class>Intent</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj</type>
+        <text>Tests [something].</text>
+        <conditions>
+            <condition>dobj.governor="test"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj</type>
+        <text>[something] makes.</text>
+        <conditions>
+            <condition>nsubj.governor="do make"</condition>
+        </conditions>
+        <sentence_class>Intent</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj</type>
+        <text>Shows [something].</text>
+        <conditions>
+            <condition>dobj.governor="show"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj</type>
+        <text>Creates [something].</text>
+        <conditions>
+            <condition>dobj.governor="create"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj</type>
+        <text>Works [something].</text>
+        <conditions>
+            <condition>dobj.governor="work"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj</type>
+        <text>Traverses [something].</text>
+        <conditions>
+            <condition>dobj.governor="reset traverse"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj</type>
+        <text>Displays [something].</text>
+        <conditions>
+            <condition>dobj.governor="display"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj</type>
+        <text>Implements [something].</text>
+        <conditions>
+            <condition>dobj.governor="traverse implement"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+
+    <!-- Key implementation points -->
+
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/aux/dobj</type>
+        <text>[something] will produce [something].</text>
+        <conditions>
+            <condition>nsubj.governor="produce"</condition>
+            <condition>nsubj.governor=aux.governor</condition>
+            <condition>aux.dependent="will"</condition>
+            <condition>aux.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Key implementation points</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj/aux</type>
+        <text>[auxiliary] produce [something].</text>
+        <conditions>
+            <condition>dobj.governor="produce"</condition>
+            <condition>dobj.governor=aux.governor</condition>
+        </conditions>
+        <sentence_class>Key implementation points</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>aux/auxpass</type>
+        <text>Can be used.</text>
+        <conditions>
+            <condition>aux.governor="use"</condition>
+            <condition>aux.dependent="can"</condition>
+            <condition>aux.governor=auxpass.governor</condition>
+            <condition>auxpass.dependent="be"</condition>
+        </conditions>
+        <sentence_class>Key implementation points</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubjpass/auxpass</type>
+        <text>Which is used.</text>
+        <conditions>
+            <condition>nsubjpass.governor="apply use"</condition>
+            <condition>nsubjpass.dependent="which"</condition>
+            <condition>nsubjpass.governor=auxpass.governor</condition>
+            <condition>auxpass.dependent="be"</condition>
+        </conditions>
+        <sentence_class>Key implementation points</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>aux/dobj</type>
+        <text>[auxiliary] make [something].</text>
+        <conditions>
+            <condition>aux.governor="do make"</condition>
+            <condition>aux.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Key implementation points</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>aux</type>
+        <text>Will call.</text>
+        <conditions>
+            <condition>aux.governor="call"</condition>
+            <condition>aux.dependent="will"</condition>
+        </conditions>
+        <sentence_class>Key implementation points</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>aux/xcomp</type>
+        <text>[auxiliary] use.</text>
+        <conditions>
+            <condition>aux.governor="use"</condition>
+            <condition>aux.governor=xcomp.governor</condition>
+        </conditions>
+        <sentence_class>Key implementation points</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>prep_with</type>
+        <text/>
+        <conditions>
+            <condition>prep_with.governor="array"</condition>
+        </conditions>
+        <sentence_class>Key implementation points</sentence_class>
+    </NLP_heuristic>
+
+    <!--Key Messages -->
+
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj</type>
+        <text>Returns [something].</text>
+        <conditions>
+            <condition>dobj.governor="return"</condition>
+        </conditions>
+        <sentence_class>Key messages</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>aux</type>
+        <text>[auxiliary] return.</text>
+        <conditions>
+            <condition>aux.governor="return"</condition>
+        </conditions>
+        <sentence_class>Key messages</sentence_class>
+    </NLP_heuristic>
+
+    <!-- Preconditions/Contracts -->
+
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubjpass/auxpass</type>
+        <text>Is raised if</text>
+        <conditions>
+            <condition>nsubjpass.governor="raise"</condition>
+            <condition>nsubjpass.governor=auxpass.governor</condition>
+            <condition>auxpass.dependent="be"</condition>
+        </conditions>
+        <sentence_class>Preconditions</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj</type>
+        <text>[something] sends.</text>
+        <conditions>
+            <condition>nsubj.governor="send"</condition>
+        </conditions>
+        <sentence_class>Preconditions</sentence_class>
+    </NLP_heuristic>
+
+    <!-- Recommendations -->
+
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj/prep_to/aux/dobj</type>
+        <text>[auxiliary] add [something].</text>
+        <conditions>
+            <condition>dobj.governor="add"</condition>
+            <condition>dobj.governor=prep_to.governor</condition>
+            <condition>prep_to.governor=aux.governor</condition>
+            <condition>aux.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Recommendations</sentence_class>
+    </NLP_heuristic>
+
+    <!-- Reference to other ressources -->
+
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj</type>
+        <text>Sees [something].</text>
+        <conditions>
+            <condition>dobj.governor="see"</condition>
+            <condition>dobj.dependent="comment"</condition>
+        </conditions>
+        <sentence_class>Reference to other ressources</sentence_class>
+    </NLP_heuristic>
+
+    <!-- Responsibilities -->
+
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/dobj</type>
+        <text>[something] uses [something].</text>
+        <conditions>
+            <condition>nsubj.governor="apply use"</condition>
+            <condition>nsubj.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj</type>
+        <text>Implements [something].</text>
+        <conditions>
+            <condition>dobj.governor="traverse implement"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj</type>
+        <text>[verb] [something].</text>
+        <conditions>
+            <condition>dobj.governor="define"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/dobj</type>
+        <text>[something] defines [something].</text>
+        <conditions>
+            <condition>nsubj.governor="define"</condition>
+            <condition>nsubj.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubjpass/auxpass/agent</type>
+        <text>Is used.</text>
+        <conditions>
+            <condition>nsubjpass.governor="use"</condition>
+            <condition>nsubjpass.governor=auxpass.governor</condition>
+            <condition>auxpass.dependent="be"</condition>
+            <condition>auxpass.governor=agent.governor</condition>
+        </conditions>
+        <sentence_class>Collaborators</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj</type>
+        <text>I implements.</text>
+        <conditions>
+            <condition>nsubj.governor="tool implement"</condition>
+            <condition>nsubj.dependent="i"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>aux/dobj</type>
+        <text>[auxiliary] add [something].</text>
+        <conditions>
+            <condition>aux.governor="add"</condition>
+            <condition>aux.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/dobj</type>
+        <text>I creates [something].</text>
+        <conditions>
+            <condition>nsubj.governor="create"</condition>
+            <condition>nsubj.dependent="i"</condition>
+            <condition>nsubj.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubjpass/aux/auxpass/xcomp</type>
+        <text>Can be used.</text>
+        <conditions>
+            <condition>nsubjpass.governor="use"</condition>
+            <condition>nsubjpass.governor=aux.governor</condition>
+            <condition>aux.dependent="can"</condition>
+            <condition>aux.governor=auxpass.governor</condition>
+            <condition>auxpass.dependent="be"</condition>
+            <condition>auxpass.governor=xcomp.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj</type>
+        <text>Creates [something].</text>
+        <conditions>
+            <condition>dobj.governor="create"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/ccomp</type>
+        <text>[something] knows.</text>
+        <conditions>
+            <condition>nsubj.governor="know"</condition>
+            <condition>nsubj.governor=ccomp.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>xcomp/nsubjpass/auxpass</type>
+        <text>Is used.</text>
+        <conditions>
+            <condition>xcomp.governor="use"</condition>
+            <condition>xcomp.governor=nsubjpass.governor</condition>
+            <condition>nsubjpass.governor=auxpass.governor</condition>
+            <condition>auxpass.dependent="be"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/dobj</type>
+        <text>I uses [something].</text>
+        <conditions>
+            <condition>nsubj.governor="use"</condition>
+            <condition>nsubj.dependent="i"</condition>
+            <condition>nsubj.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Collaborators</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubjpass/auxpass/prepc_for</type>
+        <text>Is used.</text>
+        <conditions>
+            <condition>nsubjpass.governor="use"</condition>
+            <condition>nsubjpass.governor=auxpass.governor</condition>
+            <condition>auxpass.dependent="be"</condition>
+            <condition>auxpass.governor=prepc_for.governor</condition>
+        </conditions>
+        <sentence_class>Collaborators</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>aux/dobj</type>
+        <text>To manage [something].</text>
+        <conditions>
+            <condition>aux.governor="manage"</condition>
+            <condition>aux.dependent="to"</condition>
+            <condition>aux.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj/nsubj</type>
+        <text>[something] defines [something].</text>
+        <conditions>
+            <condition>dobj.governor="define"</condition>
+            <condition>dobj.governor=nsubj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/dobj</type>
+        <text>[something] displays [something].</text>
+        <conditions>
+            <condition>nsubj.governor="display"</condition>
+            <condition>nsubj.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj</type>
+        <text>Finds [something].</text>
+        <conditions>
+            <condition>dobj.governor="find"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj</type>
+        <text>[something] provides.</text>
+        <conditions>
+            <condition>nsubj.governor="supply provide"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj/nsubj</type>
+        <text>[something] uses [something].</text>
+        <conditions>
+            <condition>dobj.governor="apply use"</condition>
+            <condition>dobj.governor=nsubj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>xcomp/nsubjpass/auxpass</type>
+        <text>Uses and i.</text>
+        <conditions>
+            <condition>xcomp.governor="use"</condition>
+            <condition>xcomp.governor=nsubjpass.governor</condition>
+            <condition>nsubjpass.dependent="i"</condition>
+            <condition>nsubjpass.governor=auxpass.governor</condition>
+            <condition>auxpass.dependent="be"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>xcomp/aux/dobj</type>
+        <text>To use [something] to manage.</text>
+        <conditions>
+            <condition>xcomp.governor="use"</condition>
+            <condition>xcomp.dependent="manage"</condition>
+            <condition>xcomp.dependent=aux.governor</condition>
+            <condition>aux.dependent="to"</condition>
+            <condition>aux.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj/nsubj/aux</type>
+        <text>[something] [auxiliary] implement which and plugin.</text>
+        <conditions>
+            <condition>dobj.governor="implement"</condition>
+            <condition>dobj.dependent="which"</condition>
+            <condition>dobj.governor=nsubj.governor</condition>
+            <condition>nsubj.dependent="plugin"</condition>
+            <condition>nsubj.governor=aux.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>aux/dobj</type>
+        <text>To get position.</text>
+        <conditions>
+            <condition>aux.governor="get"</condition>
+            <condition>aux.dependent="to"</condition>
+            <condition>aux.governor=dobj.governor</condition>
+            <condition>dobj.dependent="position"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj/prep_to/aux/dobj</type>
+        <text>[auxiliary] add [something].</text>
+        <conditions>
+            <condition>dobj.governor="add"</condition>
+            <condition>dobj.governor=prep_to.governor</condition>
+            <condition>prep_to.governor=aux.governor</condition>
+            <condition>aux.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/dobj/prepc_for</type>
+        <text>I implements [something].</text>
+        <conditions>
+            <condition>nsubj.governor="implement"</condition>
+            <condition>nsubj.dependent="i"</condition>
+            <condition>nsubj.governor=dobj.governor</condition>
+            <condition>dobj.governor=prepc_for.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/dobj</type>
+        <text>I implements algorithm.</text>
+        <conditions>
+            <condition>nsubj.governor="implement"</condition>
+            <condition>nsubj.dependent="i"</condition>
+            <condition>nsubj.governor=dobj.governor</condition>
+            <condition>dobj.dependent="algorithm"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/aux/dobj</type>
+        <text>[something] [auxiliary] go [something].</text>
+        <conditions>
+            <condition>nsubj.governor="move go"</condition>
+            <condition>nsubj.governor=aux.governor</condition>
+            <condition>aux.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/dobj</type>
+        <text>I has [something].</text>
+        <conditions>
+            <condition>nsubj.governor="have"</condition>
+            <condition>nsubj.dependent="i"</condition>
+            <condition>nsubj.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>ccomp</type>
+        <text>Knows.</text>
+        <conditions>
+            <condition>ccomp.governor="know"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>prepc_for/dobj/prepc_for</type>
+        <text>[verb]s behavior.</text>
+        <conditions>
+            <condition>prepc_for.governor="implement"</condition>
+            <condition>prepc_for.governor=dobj.governor</condition>
+            <condition>dobj.dependent="behavior"</condition>
+            <condition>dobj.governor=prepc_for.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>xcomp/nsubj/dobj</type>
+        <text>[something] uses [something] and i.</text>
+        <conditions>
+            <condition>xcomp.governor="use"</condition>
+            <condition>xcomp.governor=nsubj.governor</condition>
+            <condition>nsubj.dependent="i"</condition>
+            <condition>nsubj.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Collaborators</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>aux/nsubj</type>
+        <text>[something] [auxiliary] provide.</text>
+        <conditions>
+            <condition>aux.governor="provide"</condition>
+            <condition>aux.governor=nsubj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/aux/dobj</type>
+        <text>[something] can provide [something].</text>
+        <conditions>
+            <condition>nsubj.governor="provide"</condition>
+            <condition>nsubj.governor=aux.governor</condition>
+            <condition>aux.dependent="can"</condition>
+            <condition>aux.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>aux/dobj</type>
+        <text>To find [something].</text>
+        <conditions>
+            <condition>aux.governor="find"</condition>
+            <condition>aux.dependent="to"</condition>
+            <condition>aux.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj/nsubj</type>
+        <text>[something] finds [something].</text>
+        <conditions>
+            <condition>dobj.governor="find"</condition>
+            <condition>dobj.governor=nsubj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/dobj</type>
+        <text>[something] holds [something].</text>
+        <conditions>
+            <condition>nsubj.governor="maintain hold"</condition>
+            <condition>nsubj.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/dobj</type>
+        <text>[something] builds [something].</text>
+        <conditions>
+            <condition>nsubj.governor="construct build"</condition>
+            <condition>nsubj.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj</type>
+        <text>I holds.</text>
+        <conditions>
+            <condition>nsubj.governor="maintain hold"</condition>
+            <condition>nsubj.dependent="i"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj/prepc_for</type>
+        <text>Implements [something].</text>
+        <conditions>
+            <condition>dobj.governor="implement"</condition>
+            <condition>dobj.governor=prepc_for.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>aux/dobj</type>
+        <text>[auxiliary] define [something].</text>
+        <conditions>
+            <condition>aux.governor="define"</condition>
+            <condition>aux.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj/nsubj</type>
+        <text>[something] takes [something].</text>
+        <conditions>
+            <condition>dobj.governor="take"</condition>
+            <condition>dobj.governor=nsubj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>prep_on/aux</type>
+        <text>Will [verb].</text>
+        <conditions>
+            <condition>prep_on.governor="remove"</condition>
+            <condition>prep_on.governor=aux.governor</condition>
+            <condition>aux.dependent="will"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj</type>
+        <text>Provides [something].</text>
+        <conditions>
+            <condition>dobj.governor="provide"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj/prep_to</type>
+        <text>Delegates [something].</text>
+        <conditions>
+            <condition>dobj.governor="delegate"</condition>
+            <condition>dobj.governor=prep_to.governor</condition>
+            <condition>prep_to.dependent="environment"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/prep_on</type>
+        <text>[something] subscribes.</text>
+        <conditions>
+            <condition>nsubj.governor="subscribe"</condition>
+            <condition>nsubj.governor=prep_on.governor</condition>
+            <condition>prep_on.dependent="event"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/prep_on</type>
+        <text>Plugin subscribes.</text>
+        <conditions>
+            <condition>nsubj.governor="subscribe"</condition>
+            <condition>nsubj.dependent="plugin"</condition>
+            <condition>nsubj.governor=prep_on.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/cop</type>
+        <text>[something] is responsibility.</text>
+        <conditions>
+            <condition>nsubj.governor="responsibility"</condition>
+            <condition>nsubj.governor=cop.governor</condition>
+            <condition>cop.dependent="be"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/dobj</type>
+        <text>[something] provides method.</text>
+        <conditions>
+            <condition>nsubj.governor="provide"</condition>
+            <condition>nsubj.governor=dobj.governor</condition>
+            <condition>dobj.dependent="method"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>aux/dobj</type>
+        <text>To add [something].</text>
+        <conditions>
+            <condition>aux.governor="add"</condition>
+            <condition>aux.dependent="to"</condition>
+            <condition>aux.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/ccomp</type>
+        <text>I knows.</text>
+        <conditions>
+            <condition>nsubj.governor="know"</condition>
+            <condition>nsubj.dependent="i"</condition>
+            <condition>nsubj.governor=ccomp.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/dobj</type>
+        <text>It finds [something].</text>
+        <conditions>
+            <condition>nsubj.governor="find"</condition>
+            <condition>nsubj.dependent="it"</condition>
+            <condition>nsubj.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/dobj</type>
+        <text>I defines [something].</text>
+        <conditions>
+            <condition>nsubj.governor="define"</condition>
+            <condition>nsubj.dependent="i"</condition>
+            <condition>nsubj.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/dobj</type>
+        <text>[something] catches [something].</text>
+        <conditions>
+            <condition>nsubj.governor="catch"</condition>
+            <condition>nsubj.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/dobj</type>
+        <text>[something] stores [something].</text>
+        <conditions>
+            <condition>nsubj.governor="store"</condition>
+            <condition>nsubj.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>aux/dobj</type>
+        <text>To do [something].</text>
+        <conditions>
+            <condition>aux.governor="make do"</condition>
+            <condition>aux.dependent="to"</condition>
+            <condition>aux.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/dobj</type>
+        <text>I maintains [something].</text>
+        <conditions>
+            <condition>nsubj.governor="hold maintain"</condition>
+            <condition>nsubj.dependent="i"</condition>
+            <condition>nsubj.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>aux</type>
+        <text>To indicate.</text>
+        <conditions>
+            <condition>aux.governor="indicate"</condition>
+            <condition>aux.dependent="to"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj</type>
+        <text>Tests [something].</text>
+        <conditions>
+            <condition>dobj.governor="test"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>aux/dobj</type>
+        <text>[auxiliary] create [something].</text>
+        <conditions>
+            <condition>aux.governor="create"</condition>
+            <condition>aux.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>aux</type>
+        <text>To create.</text>
+        <conditions>
+            <condition>aux.governor="create"</condition>
+            <condition>aux.dependent="to"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj</type>
+        <text>Has [something].</text>
+        <conditions>
+            <condition>dobj.governor="have"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj/prep_in</type>
+        <text>Creates [something].</text>
+        <conditions>
+            <condition>dobj.governor="create"</condition>
+            <condition>dobj.governor=prep_in.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj</type>
+        <text>Creates element.</text>
+        <conditions>
+            <condition>dobj.governor="create"</condition>
+            <condition>dobj.dependent="element"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>aux/prep_for</type>
+        <text>[auxiliary] collect.</text>
+        <conditions>
+            <condition>aux.governor="collect"</condition>
+            <condition>aux.governor=prep_for.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj</type>
+        <text>Traverses [something].</text>
+        <conditions>
+            <condition>dobj.governor="implement traverse"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>agent</type>
+        <text>I see</text>
+        <conditions>
+            <condition>agent.governor="use"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/vmod</type>
+        <text>[something] implements.</text>
+        <conditions>
+            <condition>nsubj.governor="tool implement"</condition>
+            <condition>nsubj.governor=vmod.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/aux</type>
+        <text>[something] [auxiliary] be.</text>
+        <conditions>
+            <condition>nsubj.governor="be"</condition>
+            <condition>nsubj.governor=aux.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj</type>
+        <text>Stores [something].</text>
+        <conditions>
+            <condition>dobj.governor="store"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>auxpass</type>
+        <text>Is processed.</text>
+        <conditions>
+            <condition>auxpass.governor="process"</condition>
+            <condition>auxpass.dependent="be"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/dobj</type>
+        <text>[something] includes [something].</text>
+        <conditions>
+            <condition>nsubj.governor="include"</condition>
+            <condition>nsubj.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/dobj</type>
+        <text>[something] adds [something].</text>
+        <conditions>
+            <condition>nsubj.governor="add"</condition>
+            <condition>nsubj.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/dobj</type>
+        <text>[something] builds [something].</text>
+        <conditions>
+            <condition>nsubj.governor="construct build"</condition>
+            <condition>nsubj.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj</type>
+        <text>I does.</text>
+        <conditions>
+            <condition>nsubj.governor="make do"</condition>
+            <condition>nsubj.dependent="i"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj</type>
+        <text>I indicates.</text>
+        <conditions>
+            <condition>nsubj.governor="indicate"</condition>
+            <condition>nsubj.dependent="i"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj</type>
+        <text>Matches [something].</text>
+        <conditions>
+            <condition>dobj.governor="traverse match"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj/dobj</type>
+        <text>[something] allows [something].</text>
+        <conditions>
+            <condition>nsubj.governor="allow"</condition>
+            <condition>nsubj.governor=dobj.governor</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj</type>
+        <text>Collects [something].</text>
+        <conditions>
+            <condition>dobj.governor="store collect"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj</type>
+        <text>Does [something].</text>
+        <conditions>
+            <condition>dobj.governor="make do"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj</type>
+        <text>Returns [something].</text>
+        <conditions>
+            <condition>dobj.governor="return"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj</type>
+        <text>Handles [something].</text>
+        <conditions>
+            <condition>dobj.governor="handle"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>nsubj</type>
+        <text>[something] holds.</text>
+        <conditions>
+            <condition>nsubj.governor="hold"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj</type>
+        <text>Retrieves [something].</text>
+        <conditions>
+            <condition>dobj.governor="retrieve"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+    <NLP_heuristic>
+        <sentence type="declarative"/>
+        <type>dobj</type>
+        <text>[verb] [something].</text>
+        <conditions>
+            <condition>dobj.governor="transform"</condition>
+        </conditions>
+        <sentence_class>Responsibilities</sentence_class>
+    </NLP_heuristic>
+
+
+</heuristics>
