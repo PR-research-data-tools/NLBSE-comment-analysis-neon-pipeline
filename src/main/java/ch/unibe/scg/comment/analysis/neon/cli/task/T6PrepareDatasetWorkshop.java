@@ -94,7 +94,6 @@ public class T6PrepareDatasetWorkshop {
 						//create instance builder for each category
 						InstancesBuilder builder = this.instancesBuilder(statement, categories, a_category.getKey(), partition.getKey());
 						builder.setPartition(partition.getKey().intValue()); //set partition to prepare different feature set for training and testing
-
 						//iterate the sentences (instance_type -> {sentences})
 						for (Map.Entry<String, List<String>> sentences : a_category.getValue().entrySet()) {
 							for(String a_sentence: sentences.getValue()){
@@ -105,7 +104,7 @@ public class T6PrepareDatasetWorkshop {
 						try (ByteArrayOutputStream buffer = new ByteArrayOutputStream()) {
 
 							String prefix = String.format("%d-%d-%s", partition.getKey().intValue(), extractorsPartition, a_category.getKey().toLowerCase());
-
+							builder.setPath(directory, prefix);
 							ArffSaver saver = new ArffSaver();
 
 							/*Path path2 = this.directory.resolve(String.format("%s.arff", prefix));
