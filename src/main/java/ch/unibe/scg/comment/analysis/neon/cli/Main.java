@@ -1,15 +1,6 @@
 package ch.unibe.scg.comment.analysis.neon.cli;
 
-import ch.unibe.scg.comment.analysis.neon.cli.task.T10BuildClassifiers;
-import ch.unibe.scg.comment.analysis.neon.cli.task.T11ImportClassifierOutputs;
-import ch.unibe.scg.comment.analysis.neon.cli.task.T1Preprocess;
-import ch.unibe.scg.comment.analysis.neon.cli.task.T2SplitSentences;
-import ch.unibe.scg.comment.analysis.neon.cli.task.T3MapSentences;
-import ch.unibe.scg.comment.analysis.neon.cli.task.T4PartitionSentencesWorkshop;
-import ch.unibe.scg.comment.analysis.neon.cli.task.T5PrepareExtractors;
-import ch.unibe.scg.comment.analysis.neon.cli.task.T5StorePartitionSentences;
-import ch.unibe.scg.comment.analysis.neon.cli.task.T6PrepareDatasetWorkshop;
-import ch.unibe.scg.comment.analysis.neon.cli.task.T7PrepareExperimentsWorkshop;
+import ch.unibe.scg.comment.analysis.neon.cli.task.*;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -61,7 +52,10 @@ public class Main {
 						(new T4PartitionSentencesWorkshop(database, data, new int[]{80,20})).run();
 					} else if ("5-prepare-extractors".equals(task)) {
 						//set boolean variable true if you want to use explicit heuristic file
-						(new T5PrepareExtractors(database, data, Integer.MAX_VALUE, false,20)).run();
+						(new T5PrepareExtractors(database, data, Integer.MAX_VALUE, false)).run();
+					} else if ("5-prepare-extractors-workshop".equals(task)) {
+						//set boolean variable true if you want to use explicit heuristic file, set number of threads to parallelize
+						(new T5PrepareExtractorsWorkshop(database, data, Integer.MAX_VALUE, false)).run();
 					} else if ("5-store-partition".equals(task)) {
 						//store the sentences of training and testing split
 						(new T5StorePartitionSentences(database, data)).run();
