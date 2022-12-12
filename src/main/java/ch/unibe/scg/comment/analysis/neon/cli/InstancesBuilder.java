@@ -31,6 +31,7 @@ public class InstancesBuilder {
 	private final File heuristics;
 	private final File dictionary;
 	private final Instances instances;
+	private boolean isTrainingPartition;
 
 	public InstancesBuilder(String name, List<String> categories, File heuristics, File dictionary) {
 		super();
@@ -161,12 +162,20 @@ public class InstancesBuilder {
 		return String.format("category-%s", category);
 	}
 
+	public void setPartition(int partition){
+		if(partition == 0){
+			this.isTrainingPartition = true;
+		}else {
+			this.isTrainingPartition = false;
+		}
+	}
 	/**
 	 * Transforms instances from text to heuristic features.
 	 *
 	 * @param instances Must have a "text" attribute
 	 * @return
 	 * @throws Exception
+	 * @todo get the heuristic from the training partition and use it for testing as well
 	 */
 	private Instances heuristic(Instances instances) throws Exception {
 		StringToHeuristicVector filter = new StringToHeuristicVector();
@@ -191,7 +200,11 @@ public class InstancesBuilder {
 		filter.setStemmer(new IteratedLovinsStemmer());
 		filter.setOutputWordCounts(true);
 		filter.setTFTransform(true);
-		filter.setIDFTransform(true);
+		//if the instances are coming from testing then use the IDF from training set.
+		//compute TF for training and testing but only IDF for training
+		if(isTrainingPartition) {
+			filter.setIDFTransform(true);
+		}
 		filter.setAttributeNamePrefix("tfidf-");
 		filter.setAttributeIndices(String.format("%d-%d", i, i));
 		filter.setDictionaryFile(this.dictionary);

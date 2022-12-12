@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-/** Prepare the partitions based on a different logic than T4PartitionSentences
+/** Prepare the partitions based on training and testing split. Within each split, we distribute sentences as per the stratum it belongs to
  * @partitions number of partitions to create. Currently, we have training (0_0) and testing (1_0) split.
  */
 public class T4PartitionSentencesWorkshop {

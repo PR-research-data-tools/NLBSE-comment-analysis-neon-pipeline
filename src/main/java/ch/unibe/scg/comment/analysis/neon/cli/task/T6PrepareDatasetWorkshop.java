@@ -93,6 +93,8 @@ public class T6PrepareDatasetWorkshop {
 
 						//create instance builder for each category
 						InstancesBuilder builder = this.instancesBuilder(statement, categories, a_category.getKey(), partition.getKey());
+						builder.setPartition(partition.getKey().intValue()); //set partition to prepare different feature set for training and testing
+
 						//iterate the sentences (instance_type -> {sentences})
 						for (Map.Entry<String, List<String>> sentences : a_category.getValue().entrySet()) {
 							for(String a_sentence: sentences.getValue()){
