@@ -1,0 +1,16 @@
+@relation 'prepare-weka.filters.unsupervised.attribute.FixedDictionaryStringToWordVector-Itrue-Ttrue-R1-dictionarytraining_dictionary.csv-L-C-stemmerweka.core.stemmers.IteratedLovinsStemmer-stopwords-handlerweka.core.stopwords.Rainbow-tokenizerweka.core.tokenizers.WordTokenizer -delimiters \" \\r\\n\\t.,;:\\\'\\\"()?!\"'
+
+@attribute day numeric
+@attribute mov numeric
+@attribute outsid numeric
+@attribute prem numeric
+@attribute rain numeric
+@attribute season numeric
+@attribute tod numeric
+@attribute watch numeric
+
+@data
+{6 9.349455}
+{6 8.053182}
+{6 6.381996}
+{6 4.026591}
