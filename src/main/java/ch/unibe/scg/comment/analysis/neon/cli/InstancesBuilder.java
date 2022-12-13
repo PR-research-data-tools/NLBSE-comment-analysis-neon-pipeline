@@ -180,52 +180,8 @@ public class InstancesBuilder {
 	private Instances heuristic(Instances instances) throws Exception {
 		StringToHeuristicVector filter = new StringToHeuristicVector();
 		filter.setCategories(this.categories);
-
-		Path xml_filepath = this.directory.resolve(String.format("%s-training.xml", this.prefix));
-		Path arff_filepath = this.directory.resolve(String.format("%s-training.arff", this.prefix));
-		if(isTrainingPartition){
-			filter.setHeuristics(this.heuristics);
-			filter.setInputFormat(instances);
-
-			//save the heuristics and instances of the training set so that we can use them for testing
-			Files.deleteIfExists(xml_filepath);
-			//Path xml_path = Files.createFile(xml_filepath);
-			try {
-				FileOutputStream fos = new FileOutputStream( String.valueOf( xml_filepath ) );
-				FileInputStream fis = new FileInputStream( this.heuristics );
-				byte[] buffer = new byte[1024];
-				int len = 0;
-				while ((len = fis.read(buffer)) > 0 ){
-					fos.write( buffer, 0, len );
-				}
-				fis.close();
-				fos.close();
-			}
-			catch (IOException ioe) {
-				System.err.println( "error creating temporary test file" );
-			}
-
-			Files.deleteIfExists(arff_filepath);
-			Path arff_path = Files.createFile(arff_filepath);
-			ArffSaver saver = new ArffSaver();
-			saver.setFile(arff_path.toFile());
-			saver.setInstances(instances);
-			saver.writeBatch();
-
-		} else {
-			Path xml_path = Paths.get(xml_filepath.toUri());
-			File training_heuristic = null;
-			try{
-				String content = Files.readString(xml_path);
-				training_heuristic = new File( content );
-			}
-			catch (IOException ioe) {
-				System.err.println( "error creating temporary test file" );
-			}
-			filter.setHeuristics(training_heuristic);
-			//filter.setInputFormat(instances);
-		}
-
+		filter.setHeuristics(this.heuristics);
+		filter.setInputFormat(instances);
 		return Filter.useFilter(instances, filter);
 	}
 
