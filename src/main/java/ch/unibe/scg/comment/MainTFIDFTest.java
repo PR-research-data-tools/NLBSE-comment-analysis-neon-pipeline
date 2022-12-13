@@ -49,8 +49,6 @@ public class MainTFIDFTest {
             trainingInstances.add(instance);
         }
 
-        Instances copyTrainingInstances = new Instances(trainingInstances);
-        Instances copyTrainingInstances2 = new Instances(trainingInstances);
         // -------
 
         // create testing instances
@@ -64,19 +62,18 @@ public class MainTFIDFTest {
             testingInstances.add(instance);
         }
 
-        Instances copyTestingInstances = new Instances(testingInstances);
         // ------------
 
         // create dictionary
 
         Path trainingDictPath = Paths.get("training_dictionary.csv");
-        extractDictionary(copyTrainingInstances, trainingDictPath);
+        extractDictionary(trainingInstances, trainingDictPath);
 
         // ------
 
         // TF IDF on training set
-        FixedDictionaryStringToWordVector trainingFilter = getTfIdfFilter(copyTrainingInstances2, trainingDictPath);
-        Instances trainingTfIdfInstances = Filter.useFilter(copyTrainingInstances2, trainingFilter);
+        FixedDictionaryStringToWordVector trainingFilter = getTfIdfFilter(trainingInstances, trainingDictPath);
+        Instances trainingTfIdfInstances = Filter.useFilter(trainingInstances, trainingFilter);
 
         Path trainingPath = Paths.get("training_features.arff");
         ArffSaver saver = new ArffSaver();
@@ -89,7 +86,7 @@ public class MainTFIDFTest {
         // TF IDF on testing set using the same filter
 
         DictionaryBuilder builder = trainingFilter.getDictionaryHandler();
-        Instances testingTfIdfInstances = Filter.useFilter(copyTestingInstances, trainingFilter);
+        Instances testingTfIdfInstances = Filter.useFilter(testingInstances, trainingFilter);
 
         Path testingPath = Paths.get("testing_features.arff");
         saver = new ArffSaver();
@@ -98,15 +95,15 @@ public class MainTFIDFTest {
         saver.writeBatch();
 
         System.out.println(testingTfIdfInstances.instance(0));
-        Instance tfidf = builder.vectorizeInstance(copyTestingInstances.instance(0));
+        Instance tfidf = builder.vectorizeInstance(testingInstances.instance(0));
         System.out.println(tfidf);
 
         // ----------
 
         // TF IDF on testing set using a new filter
 
-        FixedDictionaryStringToWordVector testingFilter = getTfIdfFilter(copyTestingInstances, trainingDictPath);
-        Instances testingTfIdfInstances2 = Filter.useFilter(copyTestingInstances, testingFilter);
+        FixedDictionaryStringToWordVector testingFilter = getTfIdfFilter(testingInstances, trainingDictPath);
+        Instances testingTfIdfInstances2 = Filter.useFilter(testingInstances, testingFilter);
 
         Path testingPath2 = Paths.get("testing_features_new_filter.arff");
         saver = new ArffSaver();
@@ -118,8 +115,17 @@ public class MainTFIDFTest {
 
         // TF IDF on testing set using a new filter and dictionary
 
-        // Path testingDictPath = Paths.get("testing_dictionary.csv");
-        // extractDictionary(copyTrainingInstances, testingDictPath);
+        Path testingDictPath = Paths.get("testing_dictionary.csv");
+        extractDictionary(testingInstances, testingDictPath);
+
+        FixedDictionaryStringToWordVector testingFilter2 = getTfIdfFilter(testingInstances, testingDictPath);
+        Instances testingTfIdfInstances3 = Filter.useFilter(testingInstances, testingFilter2);
+
+        Path testingPath3 = Paths.get("testing_features_new_filter_dict.arff");
+        saver = new ArffSaver();
+        saver.setInstances(testingTfIdfInstances3);
+        saver.setFile(testingPath3.toFile());
+        saver.writeBatch();
 
     }
 

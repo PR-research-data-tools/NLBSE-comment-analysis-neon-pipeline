@@ -1,0 +1,10 @@
+@relation 'prepare-weka.filters.unsupervised.attribute.FixedDictionaryStringToWordVector-Itrue-Ttrue-R1-dictionarytesting_dictionary.csv-L-C-stemmerweka.core.stemmers.IteratedLovinsStemmer-stopwords-handlerweka.core.stopwords.Rainbow-tokenizerweka.core.tokenizers.WordTokenizer -delimiters \" \\r\\n\\t.,;:\\\'\\\"()?!\"'
+
+@attribute oscar numeric
+@attribute tod numeric
+
+@data
+{0 3.827185,1 8.886449}
+{0 3.827185,1 7.65437}
+{0 3.827185,1 6.065945}
+{0 3.827185,1 3.827185}
