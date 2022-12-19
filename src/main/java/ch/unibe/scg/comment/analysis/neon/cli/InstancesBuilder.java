@@ -5,18 +5,18 @@ import weka.core.DictionaryBuilder;
 import weka.core.Instances;
 import weka.core.SparseInstance;
 import weka.core.converters.ArffLoader;
-import weka.core.converters.ArffSaver;
 import weka.core.stemmers.IteratedLovinsStemmer;
 import weka.core.stopwords.Rainbow;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.FixedDictionaryStringToWordVector;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /** Creates the instances (dataset) and prepare the arff files
  * @heuristics features from heuristics generated from Neon.
@@ -29,9 +29,8 @@ public class InstancesBuilder {
 	private final File heuristics;
 	private final File dictionary;
 	private final Instances instances;
-	private boolean isTrainingPartition;
-	private Path directory; //directory to store temporary files
-	private String prefix; //prefix for the temporary files
+	private boolean isTraining;
+	private Instances trainingInstances;
 
 	public InstancesBuilder(String name, List<String> categories, File heuristics, File dictionary) {
 		super();
@@ -48,11 +47,13 @@ public class InstancesBuilder {
 		this.instances = new Instances(name, attributes, 0);
 	}
 
-	public InstancesBuilder(String name, List<String> categories, String category, File heuristics, File dictionary) {
+	public InstancesBuilder(String name, List<String> categories, String category, File heuristics, File dictionary, boolean isTraining, Instances trainingInstances) {
 		super();
 		this.categories = categories;
 		this.heuristics = heuristics;
 		this.dictionary = dictionary;
+        this.isTraining = isTraining;
+        this.trainingInstances = trainingInstances;
 		ArrayList<Attribute> attributes = new ArrayList<>();
 		// add category labels first
 		attributes.add(new Attribute(this.categoryName(category), List.of("0", "1")));
@@ -69,14 +70,14 @@ public class InstancesBuilder {
 		return loader.getDataSet();
 	}
 
-	public static byte[] save(Instances instances) throws IOException {
-		ArffSaver saver = new ArffSaver();
-		Path path = Files.createTempFile("dataset", ".arff");
-		saver.setFile(path.toFile());
-		saver.setInstances(instances);
-		saver.writeBatch();
-		return Files.readAllBytes(path);
-	}
+//	public static byte[] save(Instances instances) throws IOException {
+//		ArffSaver saver = new ArffSaver();
+//		Path path = Files.createTempFile("dataset", ".arff");
+//		saver.setFile(path.toFile());
+//		saver.setInstances(instances);
+//		saver.writeBatch();
+//		return Files.readAllBytes(path);
+//	}
 
 	/** Preprocess the comment.
 	 * Allow only letter and digit, remove all special symbols, and atmost 400 characters in a sentence.
@@ -111,15 +112,15 @@ public class InstancesBuilder {
 				.trim();
 	}
 
-	public void add(String sentence) {
-		SparseInstance instance = new SparseInstance(this.instances.numAttributes());
-		instance.setDataset(this.instances);
-		for (String category : this.categories) {
-			instance.setValue(this.instances.attribute(this.categoryName(category)), "0");
-		}
-		instance.setValue(this.instances.attribute("text"), preprocess(sentence));
-		this.instances.add(instance);
-	}
+//	public void add(String sentence) {
+//		SparseInstance instance = new SparseInstance(this.instances.numAttributes());
+//		instance.setDataset(this.instances);
+//		for (String category : this.categories) {
+//			instance.setValue(this.instances.attribute(this.categoryName(category)), "0");
+//		}
+//		instance.setValue(this.instances.attribute("text"), preprocess(sentence));
+//		this.instances.add(instance);
+//	}
 
 	public void add(String sentence, String category, String instance_type ) {
 		SparseInstance instance = new SparseInstance(this.instances.numAttributes()); //create a SparseInstance where all the attributes are initially unknown
@@ -134,23 +135,23 @@ public class InstancesBuilder {
 		this.instances.add(instance);
 	}
 
-	public void add(String sentence, Set<String> categories) {
-		SparseInstance instance = new SparseInstance(this.instances.numAttributes()); //create a SparseInstance where all the attributes are initially unknown
-		instance.setDataset(this.instances);
-
-		/*set the value 1 for the attributes (categories) that the sentence belongs to.
-		One sentence can belong to set of categories.
-		instance = {1 ?, 2 ?, 3 ? ....} in which 1, 2, 3 represent the attribute number and ? shows their value.
-		The value can be 1 if the attribute is true for the sentence otherwise 0.
-		 */
-		for (String category : this.categories) {
-			instance.setValue(this.instances.attribute(this.categoryName(category)),
-					categories.contains(category) ? "1" : "0"
-			);
-		}
-		instance.setValue(this.instances.attribute("text"), preprocess(sentence));
-		this.instances.add(instance);
-	}
+//	public void add(String sentence, Set<String> categories) {
+//		SparseInstance instance = new SparseInstance(this.instances.numAttributes()); //create a SparseInstance where all the attributes are initially unknown
+//		instance.setDataset(this.instances);
+//
+//		/*set the value 1 for the attributes (categories) that the sentence belongs to.
+//		One sentence can belong to set of categories.
+//		instance = {1 ?, 2 ?, 3 ? ....} in which 1, 2, 3 represent the attribute number and ? shows their value.
+//		The value can be 1 if the attribute is true for the sentence otherwise 0.
+//		 */
+//		for (String category : this.categories) {
+//			instance.setValue(this.instances.attribute(this.categoryName(category)),
+//					categories.contains(category) ? "1" : "0"
+//			);
+//		}
+//		instance.setValue(this.instances.attribute("text"), preprocess(sentence));
+//		this.instances.add(instance);
+//	}
 
 	public Instances build() throws Exception {
 		Instances instances = this.tfidf(this.heuristic(this.instances)); //adding tfidf features and heuristic feature
@@ -162,13 +163,6 @@ public class InstancesBuilder {
 		return String.format("category-%s", category);
 	}
 
-	public void setPartition(int partition){
-		if(partition == 0){
-			this.isTrainingPartition = true;
-		}else {
-			this.isTrainingPartition = false;
-		}
-	}
 	/**
 	 * Transforms instances from text to heuristic features.
 	 *
@@ -200,20 +194,16 @@ public class InstancesBuilder {
 		filter.setStemmer(new IteratedLovinsStemmer());
 		filter.setOutputWordCounts(true);
 		filter.setTFTransform(true);
-		//if the instances are coming from testing then use the IDF from training set.
-		//compute TF for training and testing but only IDF for training
-		if(isTrainingPartition) {
-			filter.setIDFTransform(true);
-		}
+        filter.setIDFTransform(true);
 		filter.setAttributeNamePrefix("tfidf-");
 		filter.setAttributeIndices(String.format("%d-%d", i, i));
 		filter.setDictionaryFile(this.dictionary);
-
-		//To keep the format of training set and will not add words that are not in training set.
-		if(isTrainingPartition) {
-			filter.setInputFormat(instances);
-		}
-
+        if (isTraining) {
+            filter.setInputFormat(instances);
+            trainingInstances = instances;
+        } else {
+            filter.setInputFormat(trainingInstances);
+        }
 		// fix broken m_count in dictionary build, any positive constant will work
 		Field mCount = DictionaryBuilder.class.getDeclaredField("m_count");
 		mCount.setAccessible(true);
@@ -223,8 +213,7 @@ public class InstancesBuilder {
 		return Filter.useFilter(instances, filter);
 	}
 
-	public void setPath(Path directory, String prefix) {
-		this.directory = directory;
-		this.prefix = prefix;
-	}
+    public Instances getTrainingInstances() {
+        return trainingInstances;
+    }
 }
