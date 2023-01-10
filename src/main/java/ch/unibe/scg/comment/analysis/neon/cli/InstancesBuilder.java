@@ -30,7 +30,8 @@ public class InstancesBuilder {
 	private final File dictionary;
 	private final Instances instances;
 	private boolean isTraining;
-	private Instances trainingInstances;
+	private Instances trainingIfidfInstances;
+	private Instances trainingHeuristicInstances;
 
 	public InstancesBuilder(String name, List<String> categories, File heuristics, File dictionary) {
 		super();
@@ -47,13 +48,14 @@ public class InstancesBuilder {
 		this.instances = new Instances(name, attributes, 0);
 	}
 
-	public InstancesBuilder(String name, List<String> categories, String category, File heuristics, File dictionary, boolean isTraining, Instances trainingInstances) {
+	public InstancesBuilder(String name, List<String> categories, String category, File heuristics, File dictionary, boolean isTraining, Instances trainingIfidfInstances, Instances trainingHeuristicInstances) {
 		super();
 		this.categories = categories;
 		this.heuristics = heuristics;
 		this.dictionary = dictionary;
         this.isTraining = isTraining;
-        this.trainingInstances = trainingInstances;
+        this.trainingIfidfInstances = trainingIfidfInstances;
+        this.trainingHeuristicInstances = trainingHeuristicInstances;
 		ArrayList<Attribute> attributes = new ArrayList<>();
 		// add category labels first
 		attributes.add(new Attribute(this.categoryName(category), List.of("0", "1")));
@@ -175,7 +177,12 @@ public class InstancesBuilder {
 		StringToHeuristicVector filter = new StringToHeuristicVector();
 		filter.setCategories(this.categories);
 		filter.setHeuristics(this.heuristics);
-		filter.setInputFormat(instances);
+		if (isTraining) {
+			filter.setInputFormat(instances);
+			trainingHeuristicInstances = instances;
+		} else {
+			filter.setInputFormat(trainingHeuristicInstances);
+		}
 		return Filter.useFilter(instances, filter);
 	}
 
@@ -200,9 +207,9 @@ public class InstancesBuilder {
 		filter.setDictionaryFile(this.dictionary);
         if (isTraining) {
             filter.setInputFormat(instances);
-            trainingInstances = instances;
+            trainingIfidfInstances = instances;
         } else {
-            filter.setInputFormat(trainingInstances);
+            filter.setInputFormat(trainingIfidfInstances);
         }
 		// fix broken m_count in dictionary build, any positive constant will work
 		Field mCount = DictionaryBuilder.class.getDeclaredField("m_count");
@@ -213,7 +220,10 @@ public class InstancesBuilder {
 		return Filter.useFilter(instances, filter);
 	}
 
-    public Instances getTrainingInstances() {
-        return trainingInstances;
+    public Instances getTrainingIfidfInstances() {
+        return trainingIfidfInstances;
+    }
+    public Instances getTrainingHeuristicInstances() {
+        return trainingHeuristicInstances;
     }
 }

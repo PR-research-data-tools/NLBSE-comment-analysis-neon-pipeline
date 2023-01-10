@@ -3,7 +3,6 @@ package ch.unibe.scg.comment.analysis.neon.cli.task;
 import ch.unibe.scg.comment.analysis.neon.cli.InstancesBuilder;
 import weka.core.Instances;
 import weka.core.converters.ArffSaver;
-import weka.core.converters.CSVSaver;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -17,10 +16,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Prepares all features (text+NLP) and labels into one dataset and separate
@@ -91,18 +88,19 @@ public class T6PrepareDatasetWorkshop {
 				for (Map.Entry<String, Map<Integer, Map<String, List<String>>>> a_category : partitions.entrySet()) {
 					//create instance builder for each category
 
-					Instances trainingInstances = null; // Re-use training instances for TF-IDF testing
+					Instances trainingIfidfInstances = null; // Re-use training instances for TF-IDF testing
+					Instances trainingHeuristicInstances = null; // Re-use training instances for Heuristic testing
 					for (Map.Entry<Integer, Map<String, List<String>>> partition : a_category.getValue().entrySet()) {
 						// Since we rely on HashMap order, ensure that 0-kay is retrieved first
-						if (partition.getKey() == 1 && trainingInstances == null) { // 0 => training and 1 => testing
+						if (partition.getKey() == 1 && (trainingIfidfInstances == null || trainingHeuristicInstances == null)) { // 0 => training and 1 => testing
 							System.out.println("HashMap issue: 0-key (training) is expected before 1-key (testing)!");
 							System.exit(-1);
-						} else if (partition.getKey() == 0 && trainingInstances != null) {
+						} else if (partition.getKey() == 0 && (trainingIfidfInstances != null || trainingHeuristicInstances != null)) {
 							System.out.println("HashMap issue: trainingInstances was not cleaned while preparing training instances!");
 							System.exit(-1);
 						}
 						//create instance builder for each category
-						InstancesBuilder builder = this.instancesBuilder(statement, categories, a_category.getKey(), partition.getKey(), trainingInstances);
+						InstancesBuilder builder = this.instancesBuilder(statement, categories, a_category.getKey(), partition.getKey(), trainingIfidfInstances, trainingHeuristicInstances);
 						//iterate the sentences (instance_type -> {sentences})
 						for (Map.Entry<String, List<String>> sentences : partition.getValue().entrySet()) {
 							for(String a_sentence: sentences.getValue()){
@@ -122,7 +120,8 @@ public class T6PrepareDatasetWorkshop {
 							insert.executeUpdate();
 						}
 
-						trainingInstances = builder.getTrainingInstances();
+						trainingIfidfInstances = builder.getTrainingIfidfInstances();
+						trainingHeuristicInstances = builder.getTrainingHeuristicInstances();
 					}
 				}
 			}
@@ -138,7 +137,7 @@ public class T6PrepareDatasetWorkshop {
 	 * @throws IOException
 	 */
 	private InstancesBuilder instancesBuilder(
-			Statement statement, List<String> categories, String category, int partition, Instances trainingInstances
+			Statement statement, List<String> categories, String category, int partition, Instances trainingIfidfInstances, Instances trainingHeuristicInstances
 	) throws SQLException, IOException {
 		try (
 				ResultSet result = statement.executeQuery(
@@ -158,7 +157,8 @@ public class T6PrepareDatasetWorkshop {
 					heuristics.toFile(),
 					dictionary.toFile(),
                     partition == 0, // 0 => training, 1 => testing
-                    trainingInstances // must be null during training
+                    trainingIfidfInstances, // must be null during training
+                    trainingHeuristicInstances // must be null during training
 			);
 		}
 	}
