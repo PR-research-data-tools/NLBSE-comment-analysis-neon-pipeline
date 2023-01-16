@@ -9,11 +9,14 @@ import weka.classifiers.rules.OneR;
 import weka.classifiers.rules.ZeroR;
 import weka.classifiers.trees.J48;
 import weka.classifiers.trees.RandomForest;
+import weka.core.AttributeStats;
+import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.SerializationHelper;
 import weka.core.converters.ArffLoader;
 import weka.filters.Filter;
 import weka.filters.supervised.instance.ClassBalancer;
+import weka.filters.supervised.instance.SMOTE;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -106,7 +109,7 @@ public class T10BuildClassifiers {
 									"randomforest",
 									new Instances(trainingInstances),
 									new Instances(testInstances),
-									false
+									true
 							);
 							LOGGER.info("{} build classifiers {} done", this.data, training);
 						} catch (Throwable e) {
@@ -136,7 +139,15 @@ public class T10BuildClassifiers {
 			Instances testInstances,
 			boolean balance
 	) throws Exception {
-		classifier.buildClassifier(balance ? this.balance(trainingInstances) : trainingInstances);
+		//choose a balancer (SMOTE, ClassBalancer to apply
+		if(balance){
+			//for ClassBalancer
+			//trainingInstances =this.balance(trainingInstances);
+
+			//for SMOTE Balancer
+			trainingInstances = this.balanceSmote(trainingInstances);
+		}
+		classifier.buildClassifier(trainingInstances);
 		SerializationHelper.write(this.directory.resolve(String.format("%s-%s.classifier", prefix, postfix))
 				.toAbsolutePath()
 				.toString(), classifier);
@@ -169,9 +180,43 @@ public class T10BuildClassifiers {
 		);
 		Files.writeString(this.directory.resolve(String.format("%s-%s-outputs.csv", prefix, postfix)), output);
 	}
-
+	/**
+	 * Apply ClassBalancer, It reweights the instances in the data so that each class has the same total weight.
+	 * @param instances training instances as it is a supervised filter
+	 * @return returns the oversampled training instances
+	 * @throws Exception if the filter misses any parameter or data is not as required
+	 */
 	private Instances balance(Instances instances) throws Exception {
 		ClassBalancer classBalancer = new ClassBalancer();
+		classBalancer.setInputFormat(instances);
+		instances = Filter.useFilter(instances, classBalancer);
+		return instances;
+	}
+
+	/**
+	 * Apply SMOTE balancing technique
+	 * @param instances training instances as it is a supervised filter
+	 * @return returns the oversampled training instances
+	 * @throws Exception if the filter misses any parameter or data is not as required
+	 */
+	private Instances balanceSmote(Instances instances) throws Exception {
+
+		int index = instances.classIndex();
+		AttributeStats as = instances.attributeStats(index);
+		int negatives_count = as.nominalCounts[0];
+		int positives_count = as.nominalCounts[1];
+
+		/*
+		 Find the ratio or difference between positive and negative class.
+		 It chooses by what percentage the minority class is to be oversampled.
+		 The minority class is selected by default in SMOTE based on the number of instances of the class.
+		 We assume here that negative samples are more than positives
+		 */
+		int ratio = negatives_count/positives_count;
+
+		SMOTE classBalancer = new SMOTE();
+		classBalancer.setNearestNeighbors( 3 );
+		classBalancer.setPercentage(ratio*100.00);
 		classBalancer.setInputFormat(instances);
 		instances = Filter.useFilter(instances, classBalancer);
 		return instances;

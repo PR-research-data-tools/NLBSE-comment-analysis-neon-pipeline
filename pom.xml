@@ -20,10 +20,6 @@
             <id>lib</id>
             <url>file://${basedir}/lib</url>
         </repository>
-        <!-- <repository>
-            <id>KEMLG-Wordnet Repository</id>
-            <url>https://dl.bintray.com/kemlg/wordnet-utils/</url>
-        </repository> -->
         <repository>
             <id>MVN repo</id>
             <url>https://cogcomp.seas.upenn.edu/m2repo/</url>
@@ -111,6 +107,11 @@
             <groupId>nz.ac.waikato.cms.weka</groupId>
             <artifactId>weka-stable</artifactId>
             <version>3.8.4</version>
+        </dependency>
+        <dependency>
+            <groupId>nz.ac.waikato.cms.weka</groupId>
+            <artifactId>SMOTE</artifactId>
+            <version>1.0.3</version>
         </dependency>
     </dependencies>
 
