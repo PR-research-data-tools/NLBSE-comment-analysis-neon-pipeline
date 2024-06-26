@@ -87,9 +87,9 @@ public class T5PrepareExtractorsWorkshop {
                     ArrayList<Heuristic> heuristics = new ArrayList<>();
                     ArrayList<Callable<HeuristicCallable>> callables = new ArrayList<>(partition.getValue().size());
 
-                    if(useManualHeuristicFile){
+                    if(useManualHeuristicFile) {
                         heuristics.addAll(this.readHeuristicsFromFile());
-                    }else{
+                    } else {
                         for (Map.Entry<String, List<String>> category : partition.getValue().entrySet()) {
 
                             //heuristics.addAll(this.heuristics(category.getKey(), category.getValue()));

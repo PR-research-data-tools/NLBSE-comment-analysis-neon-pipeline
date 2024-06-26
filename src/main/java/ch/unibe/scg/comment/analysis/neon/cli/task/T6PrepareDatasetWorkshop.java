@@ -162,38 +162,6 @@ public class T6PrepareDatasetWorkshop {
 		}
 	}
 
-	/**
-	 * create an instance builder for all categories of each partition
-	 * @param statement
-	 * @param categories all categories
-	 * @param partition
-	 * @return
-	 * @throws SQLException
-	 * @throws IOException
-	 */
-	private InstancesBuilder instancesBuilder(
-			Statement statement, List<String> categories, int partition
-	) throws SQLException, IOException {
-		try (
-				ResultSet result = statement.executeQuery(
-						"SELECT heuristics, dictionary FROM " + this.data + "_5_extractors WHERE partition = "
-								+ this.extractorsPartition + "")
-		) {
-			result.next();
-			Path heuristics = Files.createTempFile("heuristics", ".xml");
-			Files.write(heuristics, result.getBytes("heuristics"));
-			Path dictionary = Files.createTempFile("dictionary", ".csv");
-			Files.write(dictionary, result.getBytes("dictionary"));
-			//create an instance builder for each partition
-			return new InstancesBuilder(
-					String.format("%s-features-%d-%d", this.data, this.extractorsPartition, partition),
-					categories,
-					heuristics.toFile(),
-					dictionary.toFile()
-			);
-		}
-	}
-
 	private List<String> categories(Statement statement) throws SQLException {
 		List<String> categories = new ArrayList<>();
 		try (

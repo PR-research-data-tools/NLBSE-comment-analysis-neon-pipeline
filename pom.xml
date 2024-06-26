@@ -17,13 +17,20 @@
 
     <repositories>
         <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+        <repository>
             <id>lib</id>
             <url>file://${basedir}/lib</url>
         </repository>
-        <!-- <repository>
+        <!--
+        Uncomment if needed and ensure the URL is accessible
+        <repository>
             <id>KEMLG-Wordnet Repository</id>
             <url>https://dl.bintray.com/kemlg/wordnet-utils/</url>
-        </repository> -->
+        </repository>
+        -->
         <repository>
             <id>MVN repo</id>
             <url>https://cogcomp.seas.upenn.edu/m2repo/</url>
@@ -38,8 +45,7 @@
                 <version>3.2.2</version>
                 <configuration>
                     <transformers>
-                        <transformer
-                                implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                             <mainClass>ch.unibe.scg.comment.analysis.neon.cli.Main</mainClass>
                         </transformer>
                     </transformers>
@@ -74,6 +80,15 @@
             <groupId>edu.cmu.lti</groupId>
             <artifactId>ws4j</artifactId>
             <version>1.0.1</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/ws4j-1.0.1.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>edu.cmu.lti</groupId>
+            <artifactId>jawjaw</artifactId>
+            <version>1.0.2</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/jawjaw-1.0.2.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>

@@ -165,7 +165,7 @@ public class InstancesBuilder {
 	public void setPartition(int partition){
 		if(partition == 0){
 			this.isTrainingPartition = true;
-		}else {
+		} else {
 			this.isTrainingPartition = false;
 		}
 	}

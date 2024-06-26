@@ -33,11 +33,13 @@
         <version>3.4.1</version>
         <classifier>models</classifier>
     </dependency>
-    <dependency>
-        <groupId>edu.cmu.lti</groupId>
-        <artifactId>ws4j</artifactId>
-        <version>1.0.1</version>
-    </dependency>
+      <dependency>
+          <groupId>edu.cmu.lti</groupId>
+          <artifactId>ws4j</artifactId>
+          <version>1.0.1</version>
+          <scope>system</scope>
+          <systemPath>${basedir}/lib/ws4j-1.0.1.jar</systemPath>
+      </dependency>
   </dependencies>
   
 </project>

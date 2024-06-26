@@ -33,7 +33,7 @@ The data used for the baseline or pipeline can be found in the [NLBSE’23 tool 
 
 ---
 - `data`: contains the database with the all files, from the ground truth to the intermediate files used in various steps to the final files.
-- `lib`: Neon Tool
+- `lib`: Neon Tool and other required Jars
 - `src/`: source code of the pipeline
   - `Main.java`: parse the CLI commands. 
   - `task/`: contains various tasks starting from preprocessing the data to preparing training and testing data to building classifiers and collecting output. 
@@ -42,19 +42,36 @@ The data used for the baseline or pipeline can be found in the [NLBSE’23 tool 
 
 ## Build the pipeline
 
----
-Install dependencies and create shaded jar:
+### Prerequisites
+- Java 13 or higher
+- Maven
+
+### Install Required JARs
+
+1. Download the following JAR files:
+  - `jawjaw-1.0.2.jar` from [Google Code archive](https://code.google.com/archive/p/jawjaw/downloads])
+  - `ws4j-1.0.1.jar` from [Google Code archive](https://code.google.com/archive/p/ws4j/downloads)
+
+2. Install the JAR files into your local Maven repository:
+
+   ```sh
+   mvn install:install-file -DgroupId=edu.cmu.lti -DartifactId=jawjaw -Dversion=1.0.2 -Dpackaging=jar -Dfile=/path/to/lib/jawjaw-1.0.2.jar
+   mvn install:install-file -DgroupId=edu.cmu.lti -DartifactId=ws4j -Dversion=1.0.1 -Dpackaging=jar -Dfile=/path/to/lib/ws4j-1.0.1.jar
+   
+
+3. Install dependencies and create shaded jar:
 ```
+mvn clean install
 mvn package
 ```
 
-- Run simple smoke test, there should be an output.xml in the project folder.
+4. Run simple smoke test, there should be an output.xml in the project folder.
 
 ```
 java -jar target/cli-0.0.1-SNAPSHOT.jar src/test/resources/text.txt src/test/resources/heuristics.xml output.xml
 ```
 
-Run the pipeline on the machine (HPC server if required) where the cli commands 
+5. Run the pipeline on the machine (HPC server if required) where the cli commands 
 - `-jar` refers to the required jar file
 - `-d` refers to the languages we want to analyze, 
 - `-t` refers to the tasks or steps we want to perform
