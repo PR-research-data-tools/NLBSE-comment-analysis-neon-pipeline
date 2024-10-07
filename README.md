@@ -1,13 +1,13 @@
 ## NLBSE Tool Competition Baseline: Code Comment Classification
 
-This repository contains the source code for the baseline used in the [NLBSE’23 tool competition](https://nlbse2023.github.io/tools/) and partly in the [NLBSE'24 tool competition](https://nlbse2024.github.io/tools/) on code comment classification.
+This repository contains the source code for the baseline used in the [NLBSE’23 tool competition](https://nlbse2023.github.io/tools/), partly in the [NLBSE'24 tool competition](https://nlbse2024.github.io/tools/) and [NLBSE’25 tool competition](https://nlbse2025.github.io/tools/), on code comment classification.
 
 Participants of the competition must use the provided data on [NLBSE Tool Competition 2023:Data](https://github.com/nlbse2023/code-comment-classification) or
-[NLBSE Tool Competition 2024:Data](https://github.com/nlbse2024/code-comment-classification)
+[NLBSE Tool Competition 2024:Data](https://github.com/nlbse2024/code-comment-classification) or [NLBSE Tool Competition 2025:Data](https://github.com/nlbse2025/code-comment-classification)
 to train/test their classifiers, which should outperform the baselines.
 
 Details on how to participate in the competition can be found [here](https://colab.research.google.com/drive/1cW8iUPY9rTjZdXnGYtJ4ARBSISyKieWt#scrollTo=7ITz0v7mv4jV)
-and [here](https://colab.research.google.com/drive/1GhpyzTYcRs8SGzOMH3Xb6rLfdFVUBN0P?usp=sharing).
+and [here for 2024](https://colab.research.google.com/drive/1GhpyzTYcRs8SGzOMH3Xb6rLfdFVUBN0P?usp=sharing) and [here for 2025](https://colab.research.google.com/drive/1GhpyzTYcRs8SGzOMH3Xb6rLfdFVUBN0P?usp=sharing)
 
 ## Contents of this package
 
@@ -27,7 +27,7 @@ and [here](https://colab.research.google.com/drive/1GhpyzTYcRs8SGzOMH3Xb6rLfdFVU
 ## Data and Results of Baseline
 
 ---
-The data used for the baseline or pipeline can be found in the [NLBSE’23 tool competition](https://nlbse2023.github.io/tools/) and in the [NLBSE'24 tool competition](https://nlbse2024.github.io/tools/) repositories.
+The data used for the baseline or pipeline can be found in the [NLBSE’23 tool competition](https://nlbse2023.github.io/tools/), in the [NLBSE'24 tool competition](https://nlbse2024.github.io/tools/) and [NLBSE'25 tool competition](https://nlbse2025.github.io/tools/) repositories.
 
 ## Folder structure
 
@@ -211,7 +211,7 @@ We trained and tested 19 binary classifiers (one for each category) using the Se
 
 The baseline classifiers are coined as STACC and proposed by [Al-Kaswan et al.](https://arxiv.org/abs/2302.13681)
 
-The summary of the baseline results is found in `baseline_results_summary.xlsx` can be found in the [NLBSE’23 tool competition](https://nlbse2023.github.io/tools/) and in the [NLBSE'24 tool competition](https://nlbse2024.github.io/tools/) repositories.
+The summary of the baseline results is found in `baseline_results_summary.xlsx` can be found in the [NLBSE’23 tool competition](https://nlbse2023.github.io/tools/) and in the [NLBSE'24 tool competition](https://nlbse2024.github.io/tools/) repositories and [NLBSE'25 tool competition](https://nlbse2025.github.io/tools/)
 
 We provide a notebook to [train our baseline classifiers](STACC_baseline.ipynb) and to [run the evaluations](https://colab.research.google.com/drive/1lvXuzdl_vSwMTCGIEfqTyQC1nzl22WCy?usp=sharing).
 
